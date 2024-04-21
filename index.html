@@ -9,45 +9,6 @@
 </head>
 
 <body>
-	<?php
-	/*
-// ข้อมูล response จาก API
-$response = '{
-  "timestamp": "2024-04-21 04:39:20",
-  "success": true,
-  "response": [
-    {
-      "timestamp": "2024-04-21 04:21:03",
-      "deviceID": "Dv02",
-      "timePeriod": "Night",
-      "location": "13.828653239514567, 100.51947436927055",
-      "address": "Khwaeng Wong Sawang, Khet Bang Sue, Krung Thep Maha Nakhon 10800"
-    }
-  ]
-}';
-
-// แปลงข้อมูล JSON เป็น array associative
-$data = json_decode($response, true);
-
-// ตรวจสอบว่ามีข้อมูล response ที่ถูกต้องหรือไม่
-if ($data && $data['success']) {
-    // ดึงข้อมูลจาก response
-    $timestamp = $data['timestamp'];
-    $responseData = $data['response'][0];
-
-    // แสดงข้อมูล
-    echo "Timestamp: " . $timestamp . "\n";
-    echo "Device ID: " . $responseData['deviceID'] . "\n";
-    echo "Time Period: " . $responseData['timePeriod'] . "\n";
-    echo "Location: " . $responseData['location'] . "\n";
-    echo "Address: " . $responseData['address'] . "\n";
-} else {
-    // ถ้าไม่สามารถดึงข้อมูลได้หรือมีข้อผิดพลาด
-    echo "Failed to retrieve data from the response.";
-}*/
-
-	?>
-
 	<header>
 		<img src="img/logo.png" alt="">
 		<div class="h-text">
@@ -65,7 +26,7 @@ if ($data && $data['success']) {
 	<main>
 		<div class="row">
 			<section id="mostDetected">
-			<h1 style="display:flex; align-items:center; color:red;"><img src="https://cdn-icons-png.flaticon.com/128/9356/9356599.png" alt="" style="width:30px;">Most detected!</h1>
+			<h1 style="display:flex; align-items:center; color:red;"><img src="https://cdn-icons-png.flaticon.com/128/9356/9356599.png" alt="" style="width:30px;">Most detected! <span style="font-size:14px; color: #c7c7c7; margin-left:0.5rem;">-update:21-04-2024 18:52:52-</span></h1>
 				<div class="row">
 					
 					<div class="card" style="width:70%;">
@@ -77,24 +38,24 @@ if ($data && $data['success']) {
 							<div class="row" style="justify-content: space-between;">
 								<div class="groupData">
 									<p>timestamp</p>
-									<h4 id="timestamp">2024-04-18 22:37:03</h4>
+									<h4 id="timestamp" style="display:flex; align-items:center;"><span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</h4>
 								</div>
 
 								<div class="groupData">
 									<p>Device ID</p>
-									<h4 id="DeviceID">Dv04</h4>
+									<h4 id="DeviceID" style="display:flex; align-items:center;"><span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</h4>
 								</div>
 
 								<div class="groupData">
 									<p>Time Period</p>
-									<h4 id="TimePeriod">Night</h4>
+									<h4 id="TimePeriod" style="display:flex; align-items:center;"><span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</h4>
 								</div>
 							</div>
 
 							<div class="row">
 								<div class="groupData">
 									<p>address</p>
-									<h4 id="address">PP3H+6RX, Tambon Thung Phraya, Sanam Chai Khet District, Chachoengsao 24160</h4>
+									<h4 id="address" style="display:flex; align-items:center;"><span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</h4>
 								</div>
 							</div>
 						</div>
@@ -124,7 +85,7 @@ if ($data && $data['success']) {
 			</section>
 
 			<section id="latestDetected">
-				<h1>ตาราง</h1>
+				<canvas id="myChart"></canvas>
 			</section>
 		</div>
 	</main>
@@ -135,6 +96,7 @@ if ($data && $data['success']) {
 
 </body>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="script.js"></script>
 
 </html>
