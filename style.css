@@ -39,11 +39,20 @@ main{
 
 
 #mostDetected{
-    width: 50%;    
+    width: 50%; 
+    background-color: #f6f6f6;   
+    padding: 1rem;
+    margin: 0.5rem;
+    border-radius: 10px;
+    border-top:solid 5px #c50000 ;
+    box-shadow: 0px 0px 5px 1px #7f7f7fb3;
 }
 
 #latestDetected{
     width: 50%;
+    background-color: aqua;   
+    padding: 1rem;
+    margin: 0.5rem;
 }
 
 .total-card{
@@ -74,6 +83,33 @@ main{
     justify-content: space-between;
     height: 9rem;
     margin-top: 0.5rem;
+}
+
+#chart7-area{
+    background-color: #ffffff;
+    padding: 0.5rem;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 0.5px #7f7f7fb3;
+    width: 70%;
+    margin: 0.5rem;
+
+}
+
+#chart7Dn-area{
+    background-color: #ffffff;
+    padding: 0.5rem;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 0.5px #7f7f7fb3;
+    width: 30%;
+    margin: 0.5rem;
+
+}
+
+.chart-area{
+    background-color: #ffffff;
+    padding: 0.5rem;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 0.5px #7f7f7fb3;
 }
 
 

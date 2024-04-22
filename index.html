@@ -2,97 +2,121 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="style.css">
-	<title>t</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>t</title>
 </head>
 
 <body>
-	<header>
-		<img src="img/logo.png" alt="">
-		<div class="h-text">
-			<h2>
-				Elephant detection dashboard
-			</h2>
+    <header>
+        <img src="img/logo.png" alt="">
+        <div class="h-text">
+            <h2>
+                Elephant detection dashboard
+            </h2>
 
-			<h4>
-				from elephant detection device : <span style="color:#F3CF29;">"Hen chang nuu mai"</span>
-			</h4>
-		</div>
+            <h4>
+                from elephant detection device : <span style="color:#F3CF29;">"Hen chang nuu mai"</span>
+            </h4>
+        </div>
 
-	</header>
+    </header>
 
-	<main>
-		<div class="row">
-			<section id="mostDetected">
-			<h1 style="display:flex; align-items:center; color:red;"><img src="https://cdn-icons-png.flaticon.com/128/9356/9356599.png" alt="" style="width:30px;">Most detected! <span style="font-size:14px; color: #c7c7c7; margin-left:0.5rem;">-update:21-04-2024 18:52:52-</span></h1>
-				<div class="row">
-					
-					<div class="card" style="width:70%;">
-						<div class="card-head">
-							<h2 style="display:flex; align-items:center;"><img src="https://cdn-icons-png.flaticon.com/128/9195/9195785.png" alt="" style="width:30px;">information & latest detected</h2>
-						</div>
+    <main>
+        <div class="row">
+            <section id="mostDetected">
+                <h1 style="display:flex; align-items:center; color:#c50000;"><img
+                        src="https://cdn-icons-png.flaticon.com/128/9356/9356599.png" alt="" style="width:30px;">Most
+                    detected! <span id="update-date" style="font-size:14px; color: #818181; margin-left:0.5rem;"><span
+                        class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</span></h1>
+                <div class="row">
 
-						<div class="card-body">
-							<div class="row" style="justify-content: space-between;">
-								<div class="groupData">
-									<p>timestamp</p>
-									<h4 id="timestamp" style="display:flex; align-items:center;"><span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</h4>
-								</div>
+                    <div class="card" style="width:70%;">
+                        <div class="card-head">
+                            <h2 style="display:flex; align-items:center;"><img
+                                    src="https://cdn-icons-png.flaticon.com/128/9195/9195785.png" alt=""
+                                    style="width:30px;">information & latest detected</h2>
+                        </div>
 
-								<div class="groupData">
-									<p>Device ID</p>
-									<h4 id="DeviceID" style="display:flex; align-items:center;"><span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</h4>
-								</div>
+                        <div class="card-body">
+                            <div class="row" style="justify-content: space-between;">
+                                <div class="groupData">
+                                    <p>timestamp</p>
+                                    <h4 id="timestamp" style="display:flex; align-items:center;"></h4>
+                                </div>
 
-								<div class="groupData">
-									<p>Time Period</p>
-									<h4 id="TimePeriod" style="display:flex; align-items:center;"><span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</h4>
-								</div>
-							</div>
+                                <div class="groupData">
+                                    <p>Device ID</p>
+                                    <h4 id="DeviceID" style="display:flex; align-items:center;"></h4>
+                                </div>
 
-							<div class="row">
-								<div class="groupData">
-									<p>address</p>
-									<h4 id="address" style="display:flex; align-items:center;"><span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</h4>
-								</div>
-							</div>
-						</div>
-					</div>
+                                <div class="groupData">
+                                    <p>Time Period</p>
+                                    <h4 id="TimePeriod" style="display:flex; align-items:center;"></h4>
+                                </div>
+                            </div>
 
-					<div class="col" style="width:30%; padding:0 0.5rem;">
-						<h3>Total on device</h3>
+                            <div class="row">
+                                <div class="groupData">
+                                    <p>address</p>
+                                    <h4 id="address" style="display:flex; align-items:center;"></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-						<div class="total-today total-card" style="border-color:#4193CC;">
-						<div></div>
-						<h3 style="margin-top: 1.5rem;">46</h3>
-							<p style="text-align:end;">Today</p>
+                    <div class="col" style="width:30%; padding:0 0.5rem;">
+                        <h3>Total on device</h3>
 
-						</div>
+                        <div class="total-today total-card" style="border-color:#4193CC;">
+                            <div></div>
+                            <h3 id="L7d" style="margin-top: 1.5rem;"></h3>
+                            <p style="text-align:end;">last 7 days</p>
 
-						<div class="total-all total-card" style="border-color:#9D9BEE;">
-							<div></div>
-							<h3 style="margin-top: 1.5rem;">46</h3>
-							<p style="text-align:end;">all</p>
+                        </div>
 
-						</div>
-					</div>
-				</div>
+                        <div class="total-all total-card" style="border-color:#9D9BEE;">
+                            <div></div>
+                            <h3 style="margin-top: 1.5rem;" id="L7d-all"></h3>
+                            <p style="text-align:end;">all</p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 1rem;">
+                    <section id="chart7-area" class="col">
+                        <h2 style="display:flex; align-items:center;">detected in the last 7 days</h2>
+                              
+                            <canvas id="ChartL7d"></canvas>
+                    </section>
+
+
+                    <section id="chart7Dn-area" class="col">
+                        <h2 style="display:flex; align-items:center;">Detected time period</h2>
+
+                            
+
+                            <canvas id="Chart7-dayNight"></canvas>
+                    </section>
+                </div>
 
 
 
-			</section>
 
-			<section id="latestDetected">
-				<canvas id="myChart"></canvas>
-			</section>
-		</div>
-	</main>
 
-	<footer>
+            </section>
 
-	</footer>
+            <section id="latestDetected">
+                
+            </section>
+        </div>
+    </main>
+
+    <footer>
+
+    </footer>
 
 </body>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
