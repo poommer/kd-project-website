@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html> -->
 <html lang="en">
 
 <head>
@@ -30,7 +30,7 @@
                 <h1 style="display:flex; align-items:center; color:#c50000;"><img
                         src="https://cdn-icons-png.flaticon.com/128/9356/9356599.png" alt="" style="width:30px;">Most
                     detected! <span id="update-date" style="font-size:14px; color: #818181; margin-left:0.5rem;"><span
-                        class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</span></h1>
+                            class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</span></h1>
                 <div class="row">
 
                     <div class="card" style="width:70%;">
@@ -89,17 +89,17 @@
                 <div class="row" style="margin-top: 1rem;">
                     <section id="chart7-area" class="col">
                         <h2 style="display:flex; align-items:center;">detected in the last 7 days</h2>
-                              
-                            <canvas id="ChartL7d"></canvas>
+
+                        <canvas id="ChartL7d"></canvas>
                     </section>
 
 
                     <section id="chart7Dn-area" class="col">
                         <h2 style="display:flex; align-items:center;">Detected time period</h2>
 
-                            
 
-                            <canvas id="Chart7-dayNight"></canvas>
+
+                        <canvas id="Chart7-dayNight"></canvas>
                     </section>
                 </div>
 
@@ -110,7 +110,34 @@
             </section>
 
             <section id="latestDetected">
-                
+                <h1 style="display:flex; align-items:center; color:#15750f;">
+                    <img src="https://cdn.icon-icons.com/icons2/1146/PNG/512/1486485531-activities-history-log-past-recent_81187.png"
+                        alt="" style="width:30px;">
+                    last detected!
+                    <img src="https://media0.giphy.com/media/ZFu5rBL7T85HpI1YmT/giphy.gif?cid=6c09b952m5befecn835p1wnrv9jr2agx9zpz8gdmbvzi105x&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=s" alt="" id="update-gif" style="width:60px; display: none;">
+                </h1>
+
+                <div>
+                    <table id="latestTable" style="font-size: 14px;">
+                        <thead>
+                            <tr>
+                                <th style="width: 20%;">timestamp</th>
+                                <th style="width: 10%;">Dvice ID</th>
+                                <th style="width: 15%;">Time Period</th>
+                                <th style="width: 40%;">Address</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="body-latestTable">
+                            <tr style="text-align: center;">
+                                <td colspan="4"  style="text-align: center;"><span id="update-date" style="font-size:14px; color: #818181; margin-left:0.5rem;"><span
+                                    class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</span></td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
             </section>
         </div>
     </main>
@@ -122,6 +149,7 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
 <script src="script.js"></script>
 
 </html>

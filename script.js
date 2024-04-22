@@ -1,3 +1,7 @@
+// create function
+var newLatest = null ;
+var newLatestD = null ;
+
 function getInfo_mostDetected() {
   $.ajax({
     url: "https://script.google.com/macros/s/AKfycbw-bzmgeGwVs7oSkeHtfN87khUtgwdpeeK-6Hs8AFjoR1XTqFs5e7yzQ5zYFGZ4bbU/exec",
@@ -101,10 +105,6 @@ function getChart_L7d() {
           plugins: {
             legend: {
               position: 'right',
-            },
-            title: {
-              display: true,
-              text: 'Chart.js Horizontal Bar Chart'
             }
           }
         }
@@ -124,7 +124,7 @@ function getChart_L7d() {
               'rgb(54, 162, 235)',
               'rgb(255, 205, 86)'
             ],
-            hoverOffset: 4
+            hoverOffset: 2
           }]
         }
 
@@ -135,21 +135,57 @@ function getChart_L7d() {
 
 }
 
+function getLastData() {
+    $.ajax({
+      url: 'https://script.google.com/macros/s/AKfycbyfNTLUWB8Rn1cAvtKI3P05_GR69IDKHJ4CBR0KI9T-hxuUxjdlDrZ_c7y6MTxS9Loj/exec',
+        dataType: "json",
+        success: function (data) {
+          
+          const latest = data.response.latestData;
+          console.table(latest)
+          if(newLatest === null && newLatestD === null){
+            console.log(null)
+            newLatest = latest[0].timestamp
+            newLatestD = latest[0].deviceID
+          } 
+          else if (newLatest == latest[0].timestamp && newLatestD == latest[0].deviceID){
+            console.log(false)
+            $('#update-gif').hide();
+          }else{
+            console.log(true)
+            newLatest = latest[0].timestamp
+            newLatestD = latest[0].deviceID
+            $('#update-gif').show();
+          }
+
+          console.table(newLatest)
+          console.table(latest[0])
+          $('#body-latestTable').find('tr').remove();
+          latest.forEach(data => {
+            
+            $('#body-latestTable').append('<tr><td>'+data.timestamp+'</td>'+'<td>'+data.deviceID+'</td>'+'<td>'+data.timePeriod+'</td>'+'<td>'+data.address+'</td>'+'</tr>');
+          });
+        }
+    });
+        
+}
 
 
 
-
+// main 
 $(document).ready(function () {
 
   getInfo_mostDetected()
   getChart_L7d()
+  getLastData()
+
 
   setInterval(function () {
+    $('#update-date').html('<span id="update-date" style="font-size:14px; color: #818181; margin-left:0.5rem;"><spanclass="spinner-grow" aria-hidden="true"></spanclass=>กำลังโหลดข้อมูล...</span>');
     getInfo_mostDetected()
     getChart_L7d()
-  }, 100000);
-
-
+    getLastData()
+  }, 8000);
   
 
 });

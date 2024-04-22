@@ -49,10 +49,13 @@ main{
 }
 
 #latestDetected{
-    width: 50%;
-    background-color: aqua;   
+    width: 50%; 
+    background-color: #f6f6f6;   
     padding: 1rem;
     margin: 0.5rem;
+    border-radius: 10px;
+    border-top:solid 5px #089a00 ;
+    box-shadow: 0px 0px 5px 1px #7f7f7fb3;
 }
 
 .total-card{
@@ -153,3 +156,32 @@ main{
   background-color: #468999;
   opacity: 0;
 }
+
+table{
+    border-collapse: collapse;
+    border: solid 1px #9b9b9b;
+    width: 100%;
+}
+
+td{
+    border-bottom: 1px solid #ddd;
+    padding: 12px;
+}
+
+
+
+th {
+    padding: 12px;
+    text-align: left;
+  }
+  
+  table tbody tr:nth-child(even){background-color: #f2f2f2;}
+  
+  table tbody tr:hover {background-color: #ddd;}
+  
+  #latestTable thead{
+    background-color: #468999;
+    padding: 0.5rem;
+    color: #fff;
+    font-size: 16px;
+  }
