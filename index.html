@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Elephant detection dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
     <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
 </head>
 
@@ -24,13 +27,26 @@
 
     </header>
 
-    <main>
+    <main class="col">
+
+
         <div class="row">
             <section id="mostDetected">
-                <h1 style="display:flex; align-items:center; color:#c50000;"><img
-                        src="https://cdn-icons-png.flaticon.com/128/9356/9356599.png" alt="" style="width:30px;">Most
-                    detected! <span id="update-date" style="font-size:14px; color: #818181; margin-left:0.5rem;"><span
-                            class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</span></h1>
+                <div class="row" style="display: flex;  justify-content:space-between;">
+                    <h1 style="display:flex; align-items:center; color:#c50000;">
+                        <img
+                        src="https://cdn-icons-png.flaticon.com/128/9356/9356599.png" alt=""
+                        style="width:30px;">
+                            Most detected!
+                    </h1>
+
+
+
+                </div>
+
+
+
+
                 <div class="row">
 
                     <div class="card" style="width:70%;">
@@ -41,67 +57,110 @@
                         </div>
 
                         <div class="card-body">
-                            <div class="row" style="justify-content: space-between;">
-                                <div class="groupData">
-                                    <p>timestamp</p>
-                                    <h4 id="timestamp" style="display:flex; align-items:center;"></h4>
-                                </div>
-
-                                <div class="groupData">
-                                    <p>Device ID</p>
-                                    <h4 id="DeviceID" style="display:flex; align-items:center;"></h4>
-                                </div>
-
-                                <div class="groupData">
-                                    <p>Time Period</p>
-                                    <h4 id="TimePeriod" style="display:flex; align-items:center;"></h4>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="groupData">
-                                    <p>address</p>
-                                    <h4 id="address" style="display:flex; align-items:center;"></h4>
-                                </div>
-                            </div>
+                            <div style="font-size: 16px; display: flex; align-items: center; justify-content: center;"><span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</div>
                         </div>
                     </div>
 
-                    <div class="col" style="width:30%; padding:0 0.5rem;">
-                        <h3>Total on device</h3>
+                    <div class="col"
+                        style="display: flex; justify-content:space-between; align-items: center; margin:0 1rem;">
 
-                        <div class="total-today total-card" style="border-color:#4193CC;">
-                            <div></div>
-                            <h3 id="L7d" style="margin-top: 1.5rem;"></h3>
-                            <p style="text-align:end;">last 7 days</p>
+                        
+<div class="col">
+                            <label for="dateRange">date range</label>
+                            <select name="dateRange" id="dateRange">
+                                <option value="7days">last 7 days</option>
+                                <option value="14days">last 14 days</option>
+                                <option value="28days">last 28 days</option>
+                                <option value="Today" selected>Today</option>
+                                <option value="yesterday">yesterday</option>
+                                <option value="thisMonth">this month</option>
+                                <option value="lastMonth">last month</option>
+                                <option value="thisYear">this year</option>
+                                <option value="lastYear">last year</option>
+                                <option value="custom">custom</option>
+                            </select>
+                            </div>
+                        <div class="col" style="display: none;" id="dateRangeCustom">
+
+                            
+
+                            <div class="col">
+                                <label for="startDate">start Date</label>
+                                <input type="date" id="startDate">
+
+                            </div>
+
+                            <div class="col">
+                                <label for="startDate">End date</label>
+                                <input type="date" id="endDate">
+
+                            </div>
+
+
+<button id="btn-query" style="width: 100%; margin-top: 0.5rem;" disabled>filter</button>
+
 
                         </div>
 
-                        <div class="total-all total-card" style="border-color:#9D9BEE;">
-                            <div></div>
-                            <h3 style="margin-top: 1.5rem;" id="L7d-all"></h3>
-                            <p style="text-align:end;">all</p>
 
-                        </div>
+
+
+
+
+                    </div>
+
+
+                </div>
+
+                <div class="row" style="justify-content: space-between; align-items: center; margin-top: 1rem;">
+                    <div class="total-today total-card" style="border-color:#4193CC; width: 33.33%;">
+                        <div></div>
+                        <h3 id="MosttFRange" style="margin-top: 1.5rem;">
+                           <div style="font-size: 16px; display: flex; align-items: center; justify-content: center;"><span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</div>
+                    </h3>
+                        <p style="text-align:end;">total from range</p>
+
+                    </div>
+
+                    <div class="total-today total-card" style="border-color:#4193CC; width: 33.33%;">
+                        <div></div>
+                        <h3 id="MostToday" style="margin-top: 1.5rem;">
+                           <div style="font-size: 16px; display: flex; align-items: center; justify-content: center;"><span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</div>
+                        </h3>
+                        <p style="text-align:end;">Today</p>
+
+                    </div>
+
+                    <div class="total-all total-card" style="border-color:#9D9BEE; width: 33.33%; ">
+                        <div></div>
+                        <h3 style="margin-top: 1.5rem;" id="MostAll">
+                           <div style="font-size: 16px; display: flex; align-items: center; justify-content: center;"><span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</div>
+                        </h3>
+                        <p style="text-align:end;">all</p>
+
                     </div>
                 </div>
 
-                <div class="row" style="margin-top: 1rem;">
+                <div class="row">
                     <section id="chart7-area" class="col">
-                        <h2 style="display:flex; align-items:center;">detected in the last 7 days</h2>
+                        <h2 style="display:flex; align-items:center;">detected chart</h2>
 
-                        <canvas id="ChartL7d"></canvas>
+                        <div id="show-chart7Dn">
+                           </div>
                     </section>
 
-
-                    <section id="chart7Dn-area" class="col">
+                      <section id="chart7Dn-areaND" class="col">
                         <h2 style="display:flex; align-items:center;">Detected time period</h2>
-
-
-
-                        <canvas id="Chart7-dayNight"></canvas>
+                        <div id="show-chart7Dn-areaND">
+                            </div>
                     </section>
                 </div>
+
+                 
+
+
+                   
+
 
 
 
@@ -114,25 +173,28 @@
                     <img src="https://cdn.icon-icons.com/icons2/1146/PNG/512/1486485531-activities-history-log-past-recent_81187.png"
                         alt="" style="width:30px;">
                     last detected!
-                    <img src="https://media0.giphy.com/media/ZFu5rBL7T85HpI1YmT/giphy.gif?cid=6c09b952m5befecn835p1wnrv9jr2agx9zpz8gdmbvzi105x&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=s" alt="" id="update-gif" style="width:60px; display: none;">
+                    <img src="https://media0.giphy.com/media/ZFu5rBL7T85HpI1YmT/giphy.gif?cid=6c09b952m5befecn835p1wnrv9jr2agx9zpz8gdmbvzi105x&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=s"
+                        alt="" id="update-gif" style="width:60px; display: none;">
                 </h1>
 
                 <div>
-                    <table id="latestTable" style="font-size: 14px;">
+                    <table id="latestTable" style="font-size: 12px;">
                         <thead>
                             <tr>
-                                <th style="width: 20%;">timestamp</th>
-                                <th style="width: 10%;">Dvice ID</th>
+                                <th style="width: 21%;">timestamp</th>
+                                <th style="width: 12%;">Dvice ID</th>
                                 <th style="width: 15%;">Time Period</th>
-                                <th style="width: 40%;">Address</th>
+                                <th style="width: 60%;">Address</th>
                             </tr>
                         </thead>
 
                         <tbody id="body-latestTable">
                             <tr style="text-align: center;">
-                                <td colspan="4"  style="text-align: center;"><span id="update-date" style="font-size:14px; color: #818181; margin-left:0.5rem;"><span
-                                    class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</span></td>
-                                
+                                <td colspan="4" style="text-align: center;"><span id="update-date"
+                                        style="font-size:14px; color: #818181; margin-left:0.5rem;"><span
+                                            class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</span>
+                                </td>
+
                             </tr>
                         </tbody>
                     </table>
@@ -141,9 +203,7 @@
             </section>
         </div>
 
-        <div class="row">
-            <iframe src="https://www.google.com/maps/d/embed?mid=1SfoQ0q9ATOi3wSMz2lJJAebNBSiwO8c&ehbc=2E312F" width="640" height="480"></iframe>
-        </div>
+
     </main>
 
     <footer>
@@ -151,6 +211,8 @@
     </footer>
 
 </body>
+
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>

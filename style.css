@@ -80,6 +80,7 @@ main{
     box-shadow: 0px 0px 5px 0.5px #7f7f7fb3;
 }
 
+
 .card-body{
     display: flex;
     flex-direction: column;
@@ -98,7 +99,7 @@ main{
 
 }
 
-#chart7Dn-area{
+#chart7Dn-areaND{
     background-color: #ffffff;
     padding: 0.5rem;
     border-radius: 10px;
@@ -166,6 +167,7 @@ table{
 td{
     border-bottom: 1px solid #ddd;
     padding: 12px;
+    font-size: 14px;
 }
 
 
@@ -184,4 +186,39 @@ th {
     padding: 0.5rem;
     color: #fff;
     font-size: 16px;
+    
+    
+  }
+
+
+  select,input{
+    outline: none;
+    width: 15rem;
+    height: 40px;
+    font-size: 16px;
+  border: solid 1px #468999;
+  border-radius: 5px;
+}
+
+button{
+    cursor: pointer;
+    width: 5rem;
+    /* height: 40px; */
+    background-color: #468999;
+    border: none;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    color: #fff;
+    box-shadow: 0px 0px 3px 1px #4646468e;
+}
+
+button:disabled{
+  cursor:default;
+  background-color: #b7b7b7;
+  color: #464646;
+  box-shadow: 0px 0px 3px 1px #4646468e;
+}
+
+  select:focus,input:focus{
+    border: solid 3px #468999;
   }
