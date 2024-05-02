@@ -369,16 +369,14 @@ async function initMap() {
 // main 
 $(document).ready(function () {
 
-  getChart_L7d(`https://script.google.com/macros/s/AKfycbwzyMQQGRdOvt52OLgqShInHrIwSyD6_yB2hGfEkqPfjAePEUiKEotUlhfCyCQgYPm4/exec?dateStart=${setDate(1).Start}&dateEnd=${setDate(1).End}`)
-  getLastData()
+  
 
 
-  // setInterval(function () {
-  //   $('#update-date').html('<span id="update-date" style="font-size:14px; color: #818181; margin-left:0.5rem;"><spanclass="spinner-grow" aria-hidden="true"></spanclass=>กำลังโหลดข้อมูล...</span>');
-  //   getInfo_mostDetected()
-  //   getChart_L7d()
-  //   getLastData()
-  // }, 8000);
+  setInterval(function () {
+    $('#update-date').html('<span id="update-date" style="font-size:14px; color: #818181; margin-left:0.5rem;"><spanclass="spinner-grow" aria-hidden="true"></spanclass=>กำลังโหลดข้อมูล...</span>');
+    getChart_L7d(`https://script.google.com/macros/s/AKfycbwzyMQQGRdOvt52OLgqShInHrIwSyD6_yB2hGfEkqPfjAePEUiKEotUlhfCyCQgYPm4/exec?dateStart=${setDate(1).Start}&dateEnd=${setDate(1).End}`)
+    getLastData()
+  }, 8000);
 
 
 
