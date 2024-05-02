@@ -128,7 +128,7 @@ function getChart_L7d(url) {
 
 function getLastData() {
     $.ajax({
-      url: 'https://script.google.com/macros/s/AKfycbzPY94mwKVwsYIPvGsREVdANUPu3AN4y5Ni4G0MDCWCnXObjFzSv050hYgZ1f_RoesqBw/exec',
+      url: 'https://script.google.com/macros/s/AKfycbyQJu_ayE0VMmh1H0yJH7PQCwmPbiZDXJA-B92WIwDN_PThd5YhdAx_52xikyDYEmtwxA/exec',
         dataType: "json",
         success: function (data) {
           console.log(data)
@@ -322,17 +322,10 @@ async function initMap() {
     createDvInfo_Ad = document.createElement('p')
     createDvInfo_Count = document.createElement('p')
 
-    span_createDvInfo_DvID = document.createElement('span')
-    span_createDvInfo_Ad = document.createElement('span')
-    span_createDvInfo_Count = document.createElement('span')
-
     createDvInfo_DvID.setAttribute('id', 'DvInfo_DvID');
     createDvInfo_Ad.setAttribute('id', 'DvInfo_Ad');
     createDvInfo_Count.setAttribute('id', 'DvInfo_Count');
 
-    span_createDvInfo_DvID.setAttribute('style','font-weight: bold;')
-    span_createDvInfo_Ad.setAttribute('style','font-weight: bold;')
-    span_createDvInfo_Count.setAttribute('style','font-weight: bold;')
 
     document.getElementById('infoDV').appendChild(createDvInfo_DvID);
     document.getElementById('infoDV').appendChild(createDvInfo_Ad);
@@ -340,15 +333,10 @@ async function initMap() {
 
     
 
-    document.getElementById('DvInfo_DvID').append(span_createDvInfo_DvID);
-    document.getElementById('DvInfo_Ad').append(span_createDvInfo_Ad);
-    document.getElementById('DvInfo_Count').append(span_createDvInfo_Count);
-span_createDvInfo_DvID.textContent = 'Device ID'
-    span_createDvInfo_Ad.textContent = 'Address'
-    span_createDvInfo_Count.textContent = 'count'
-      document.getElementById('DvInfo_DvID').textContent =  val.DvId;
-      document.getElementById('DvInfo_Ad').textContent =  val.address;
-      document.getElementById('DvInfo_Count').textContent =  val.count;
+      document.getElementById('DvInfo_DvID').innerHTML =  `<span style="font-weight: bold">Device ID: </span>${val.DvId}`;
+      document.getElementById('DvInfo_Ad').innerHTML =  `<span style="font-weight: bold">address: </span>${val.address}`;
+      document.getElementById('DvInfo_Count').innerHTML =  `<span style="font-weight: bold">count Detected: </span>${val.count}`;
+
       currantMaps = val.DvId
     });
 
