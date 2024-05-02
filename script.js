@@ -2,6 +2,15 @@
 
 var newLatest = null ;
 var newLatestD = null ;
+function changeCheckedDvID(ID){
+  if($(ID).is(':checked')){
+      $(ID).parent().attr('style', 'background-color: #468999; color: #F3CF29;');
+      let value = $(ID).val();
+    console.log(value);
+    }else{
+      $(ID).parent().attr('style', '')
+    }
+}
 
 function getChart_L7d(url) {
   let canvasElement1 = $("<canvas></canvas>");
@@ -166,6 +175,510 @@ function getLastData() {
 }
 
 
+async function getDeviceDetect(filter_dateStart, filter_dateEnd, filter_TimePeriod, filter_DeviceID) {
+    
+  let FormatData = { total: 0 }
+  let dataSet = [];
+  let labels = []
+
+  let response = await $.ajax({
+    url: 'https://script.google.com/macros/s/AKfycbxMioYOWhkiyVSAKgRcSVyVNmXr5YUXzTPakbeQzv6sO-7xJ2wY6k0eB9IRvI0lCkbe/exec',
+    dataType: "json"
+  });
+
+  if(filter_dateStart === '' || filter_dateEnd === ''){
+    if (filter_TimePeriod === 'All'){
+      var query = response.filter((val) => {
+        return val.DvID === filter_DeviceID;
+      });
+
+      query.forEach(async (val) => {
+        let dateLabel = moment(val.date).tz('Asia/Bangkok').format('YYYY-MMM-DD')
+        if (!labels.includes(dateLabel)) {
+          labels.push(dateLabel);
+        }
+
+        if (FormatData.hasOwnProperty(dateLabel)) {
+          FormatData[dateLabel] += 1
+          FormatData.total += 1
+        }
+        else {
+          FormatData[dateLabel] = 1
+          FormatData.total += 1
+        }
+      });
+
+      labels.forEach((val) => {
+        dataSet.push(FormatData[val])
+      });
+    }else{
+      var query = response.filter((val) => {
+        return val.timePeriod === filter_TimePeriod && val.DvID === filter_DeviceID;
+      });
+
+      query.forEach(async (val) => {
+        let dateLabel = moment(val.date).tz('Asia/Bangkok').format('YYYY-MMM-DD')
+        if (!labels.includes(dateLabel)) {
+          labels.push(dateLabel);
+        }
+
+        if (FormatData.hasOwnProperty(dateLabel)) {
+          FormatData[dateLabel] += 1
+          FormatData.total += 1
+        } else {
+          FormatData[dateLabel] = 1
+          FormatData.total += 1
+        }
+      });
+
+      labels.forEach((val) => {
+        dataSet.push(FormatData[val])
+      });
+    }
+  }else{
+    let dateStart = moment(filter_dateStart).tz('Asia/Bangkok').format('YYYY-MM-DD');
+  let dateEnd = moment(filter_dateEnd).tz('Asia/Bangkok').format('YYYY-MM-DD');
+if (filter_TimePeriod === 'All') {
+    var query = response.filter((val) => {
+      return moment(val.date).tz('Asia/Bangkok').format('YYYY-MM-DD') >= dateStart && moment(val.date).tz('Asia/Bangkok').format('YYYY-MM-DD') <= dateEnd && val.DvID === filter_DeviceID;
+    });
+
+    query.forEach(async (val) => {
+      let dateLabel = moment(val.date).tz('Asia/Bangkok').format('YYYY-MMM-DD')
+      if (!labels.includes(dateLabel)) {
+        labels.push(dateLabel);
+      }
+
+      if (FormatData.hasOwnProperty(dateLabel)) {
+        FormatData[dateLabel] += 1
+        FormatData.total += 1
+      }
+      else {
+        FormatData[dateLabel] = 1
+        FormatData.total += 1
+      }
+    });
+
+    labels.forEach((val) => {
+      dataSet.push(FormatData[val])
+    });
+  }
+
+  else {
+    var query = response.filter((val) => {
+      return moment(val.date).tz('Asia/Bangkok').format('YYYY-MM-DD') >= dateStart && moment(val.date).tz('Asia/Bangkok').format('YYYY-MM-DD') <= dateEnd && val.timePeriod === filter_TimePeriod && val.DvID === filter_DeviceID;
+    });
+
+    query.forEach(async (val) => {
+      let dateLabel = moment(val.date).tz('Asia/Bangkok').format('YYYY-MMM-DD')
+      if (!labels.includes(dateLabel)) {
+        labels.push(dateLabel);
+      }
+
+      if (FormatData.hasOwnProperty(dateLabel)) {
+        FormatData[dateLabel] += 1
+        FormatData.total += 1
+      } else {
+        FormatData[dateLabel] = 1
+        FormatData.total += 1
+      }
+    });
+
+    labels.forEach((val) => {
+      dataSet.push(FormatData[val])
+    });
+  }
+    
+  }
+
+  
+
+  return { labels, dataSet };
+}
+
+
+async function getDeviceDetectTime(filter_dateStart, filter_dateEnd, filter_TimePeriod, filter_DeviceID) {
+  let dateStart = moment(filter_dateStart).tz('Asia/Bangkok').format('YYYY-MM-DD');
+  let dateEnd = moment(filter_dateEnd).tz('Asia/Bangkok').format('YYYY-MM-DD');
+  let FormatData = {
+    TimeRange1: 0, // 06:00 - 09:00,
+    TimeRange2: 0, // 09:00 - 12:00,
+    TimeRange3: 0, // 12:00 - 15:00,
+    TimeRange4: 0, // 15:00 - 18:00,
+    TimeRange5: 0, // 18:00 - 21:00,
+    TimeRange6: 0, // 21:00 - 24:00,
+    TimeRange7: 0, // 00:00 - 03:00,
+    TimeRange8: 0 // 03:00 - 06:00
+  }
+  
+  let labels = ['06:00 - 09:00', '09:00 - 12:00', '12:00 - 15:00', '15:00 - 18:00', '18:00 - 21:00', '21:00 - 24:00', '00:00 - 03:00', '03:00 - 06:00']
+
+  let dataSet = []
+
+  let response = await $.ajax({
+    url: 'https://script.google.com/macros/s/AKfycbxMioYOWhkiyVSAKgRcSVyVNmXr5YUXzTPakbeQzv6sO-7xJ2wY6k0eB9IRvI0lCkbe/exec',
+    dataType: "json"
+  });
+
+  if(filter_dateStart === '' || filter_dateEnd === ''){
+    if (filter_TimePeriod === 'All')  {
+      var query = response.filter((val) => {
+        return val.DvID === filter_DeviceID;
+      });
+
+      query.forEach(async (val) => {
+        let timeVal = moment(val.time, 'HH:mm').tz('Asia/Bangkok').format('HH:mm')
+        if (timeVal > moment('06:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('09:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+          FormatData.TimeRange1 += 1
+        }
+
+        else if (timeVal > moment('09:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('12:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+          FormatData.TimeRange2 += 1
+        }
+
+        else if (timeVal > moment('12:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('15:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+          FormatData.TimeRange3 += 1
+        }
+
+        else if (timeVal > moment('15:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('18:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+          FormatData.TimeRange4 += 1
+        }
+
+        else if (timeVal > moment('18:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('21:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+          FormatData.TimeRange5 += 1
+        }
+
+        else if (timeVal > moment('21:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('23:59', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+          FormatData.TimeRange6 += 1
+        }
+
+        else if (timeVal >= moment('24:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('03:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+          FormatData.TimeRange7 += 1
+        }
+
+        else if (timeVal > moment('03:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('06:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+          FormatData.TimeRange8 += 1
+        }
+      })
+
+       for(let i = 1; i < labels.length; i++){
+        dataSet.push(FormatData['TimeRange'+i])
+      }
+      }
+
+        else{
+        var query = response.filter((val) => {
+          return val.timePeriod === filter_TimePeriod && val.DvID === filter_DeviceID;
+        });
+
+        query.forEach(async (val) => {
+          let timeVal = moment(val.time, 'HH:mm').tz('Asia/Bangkok').format('HH:mm')
+
+          if (timeVal > moment('06:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('09:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+            FormatData.TimeRange1 += 1
+          }
+
+          else if (timeVal > moment('09:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('12:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+            FormatData.TimeRange2 += 1
+          }
+
+          else if (timeVal > moment('12:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('15:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+            FormatData.TimeRange3 += 1
+          }
+
+          else if (timeVal > moment('15:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('18:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+            FormatData.TimeRange4 += 1
+          }
+
+          else if (timeVal > moment('18:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('21:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+            FormatData.TimeRange5 += 1
+          }
+
+          else if (timeVal > moment('21:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('23:59', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+            FormatData.TimeRange6 += 1
+          }
+
+          else if (timeVal >= moment('24:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('03:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+            FormatData.TimeRange7 += 1
+          }
+
+          else if (timeVal > moment('03:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('06:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+            FormatData.TimeRange8 += 1
+          }
+        })
+
+        for(let i = 1; i < labels.length; i++){
+          dataSet.push(FormatData['TimeRange'+i])
+        }
+
+    }
+  }
+  
+  
+  else{
+
+    if (filter_TimePeriod === 'All')  {
+  var query = response.filter((val) => {
+    return moment(val.date).tz('Asia/Bangkok').format('YYYY-MM-DD') >= dateStart && moment(val.date).tz('Asia/Bangkok').format('YYYY-MM-DD') <= dateEnd && val.DvID === filter_DeviceID;
+  });
+
+  query.forEach(async (val) => {
+    let timeVal = moment(val.time, 'HH:mm').tz('Asia/Bangkok').format('HH:mm')
+    if (timeVal > moment('06:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('09:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+      FormatData.TimeRange1 += 1
+    }
+
+    else if (timeVal > moment('09:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('12:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+      FormatData.TimeRange2 += 1
+    }
+
+    else if (timeVal > moment('12:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('15:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+      FormatData.TimeRange3 += 1
+    }
+
+    else if (timeVal > moment('15:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('18:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+      FormatData.TimeRange4 += 1
+    }
+
+    else if (timeVal > moment('18:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('21:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+      FormatData.TimeRange5 += 1
+    }
+
+    else if (timeVal > moment('21:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('23:59', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+      FormatData.TimeRange6 += 1
+    }
+
+    else if (timeVal >= moment('24:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('03:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+      FormatData.TimeRange7 += 1
+    }
+
+    else if (timeVal > moment('03:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('06:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+      FormatData.TimeRange8 += 1
+    }
+  })
+
+   for(let i = 1; i < labels.length; i++){
+    dataSet.push(FormatData['TimeRange'+i])
+  }
+  }
+
+    else{
+    var query = response.filter((val) => {
+      return moment(val.date).tz('Asia/Bangkok').format('YYYY-MM-DD') >= dateStart && moment(val.date).tz('Asia/Bangkok').format('YYYY-MM-DD') <= dateEnd && val.timePeriod === filter_TimePeriod && val.DvID === filter_DeviceID;
+    });
+
+    query.forEach(async (val) => {
+      let timeVal = moment(val.time, 'HH:mm').tz('Asia/Bangkok').format('HH:mm')
+
+      if (timeVal > moment('06:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('09:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+        FormatData.TimeRange1 += 1
+      }
+
+      else if (timeVal > moment('09:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('12:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+        FormatData.TimeRange2 += 1
+      }
+
+      else if (timeVal > moment('12:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('15:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+        FormatData.TimeRange3 += 1
+      }
+
+      else if (timeVal > moment('15:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('18:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+        FormatData.TimeRange4 += 1
+      }
+
+      else if (timeVal > moment('18:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('21:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+        FormatData.TimeRange5 += 1
+      }
+
+      else if (timeVal > moment('21:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('23:59', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+        FormatData.TimeRange6 += 1
+      }
+
+      else if (timeVal >= moment('24:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('03:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+        FormatData.TimeRange7 += 1
+      }
+
+      else if (timeVal > moment('03:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') && timeVal <= moment('06:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')) {
+        FormatData.TimeRange8 += 1
+      }
+    })
+
+    for(let i = 1; i < labels.length; i++){
+      dataSet.push(FormatData['TimeRange'+i])
+    }
+  
+}
+    
+  }
+
+
+
+  
+  
+
+return {query, labels, dataSet };
+
+}
+
+
+async function getLatest(filter_dateStart, filter_dateEnd, filter_TimePeriod, filter_DeviceID) {
+  
+  let FormatData = { latest: [] };
+
+  let response = await $.ajax({
+    url: 'https://script.google.com/macros/s/AKfycbxMioYOWhkiyVSAKgRcSVyVNmXr5YUXzTPakbeQzv6sO-7xJ2wY6k0eB9IRvI0lCkbe/exec',
+    dataType: "json"
+  });
+
+  if(filter_dateStart === '' || filter_dateEnd === ''){
+    if (filter_TimePeriod === 'All') {
+      var query = response.filter((val) => {
+        return  val.DvID === filter_DeviceID;
+      });
+
+      // เรียงลำดับ query ตาม timestamp จากมากไปน้อย
+      query.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+      query.forEach((val) => {
+        FormatData.latest.push(val);
+      });
+    } 
+    else {
+      var query = response.filter((val) => {
+        return  val.timePeriod === filter_TimePeriod && val.DvID === filter_DeviceID;
+      });
+
+      // เรียงลำดับ query ตาม timestamp จากมากไปน้อย
+      query.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+      query.forEach((val) => {
+        FormatData.latest.push(val);
+      });
+    }
+  }
+  
+  else{
+  let dateStart = moment(filter_dateStart).tz('Asia/Bangkok').format('YYYY-MM-DD');
+  let dateEnd = moment(filter_dateEnd).tz('Asia/Bangkok').format('YYYY-MM-DD');
+  if (filter_TimePeriod === 'All') {
+    var query = response.filter((val) => {
+      return moment(val.date).tz('Asia/Bangkok').format('YYYY-MM-DD') >= dateStart && moment(val.date).tz('Asia/Bangkok').format('YYYY-MM-DD') <= dateEnd && val.DvID === filter_DeviceID;
+    });
+
+    // เรียงลำดับ query ตาม timestamp จากมากไปน้อย
+    query.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+    query.forEach((val) => {
+      FormatData.latest.push(val);
+    });
+  } 
+  else {
+    var query = response.filter((val) => {
+      return moment(val.date).tz('Asia/Bangkok').format('YYYY-MM-DD') >= dateStart && moment(val.date).tz('Asia/Bangkok').format('YYYY-MM-DD') <= dateEnd && val.timePeriod === filter_TimePeriod && val.DvID === filter_DeviceID;
+    });
+
+    // เรียงลำดับ query ตาม timestamp จากมากไปน้อย
+    query.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+    query.forEach((val) => {
+      FormatData.latest.push(val);
+    });
+  }
+  }
+  return FormatData;
+}
+
+
+async function getTimePeriod(filter_dateStart, filter_dateEnd, filter_TimePeriod, filter_DeviceID) {
+  let dateStart = moment(filter_dateStart).tz('Asia/Bangkok').format('YYYY-MM-DD');
+  let dateEnd = moment(filter_dateEnd).tz('Asia/Bangkok').format('YYYY-MM-DD');
+  let dataSet = { night:0, day:0 }
+  let labels = ['night', 'day']
+
+  var dataExp = []
+
+  let response = await $.ajax({
+    url: 'https://script.google.com/macros/s/AKfycbxMioYOWhkiyVSAKgRcSVyVNmXr5YUXzTPakbeQzv6sO-7xJ2wY6k0eB9IRvI0lCkbe/exec',
+    dataType: "json"
+  });
+
+  if(filter_dateStart === '' || filter_dateEnd === ''){
+    if (filter_TimePeriod === 'All') {
+      var query = response.filter((val) => {
+        return val.DvID === filter_DeviceID;
+      });
+
+      query.forEach(async (val) => {
+        if(val.timePeriod === 'Night'){
+          dataSet.night += 1
+        } else{
+          dataSet.day += 1
+        }
+      });
+
+
+    }
+
+    else {
+      var query = response.filter((val) => {
+        return val.timePeriod === filter_TimePeriod && val.DvID === filter_DeviceID;
+      }); 
+
+      query.forEach(async (val) => {
+        if(val.timePeriod === 'Night'){
+          dataSet.night += 1
+        } else{
+          dataSet.day += 1
+        }
+      });
+
+
+    }
+  }
+
+  else{
+
+  if (filter_TimePeriod === 'All') {
+    var query = response.filter((val) => {
+      return moment(val.date).tz('Asia/Bangkok').format('YYYY-MM-DD') >= dateStart && moment(val.date).tz('Asia/Bangkok').format('YYYY-MM-DD') <= dateEnd && val.DvID === filter_DeviceID;
+    });
+
+    query.forEach(async (val) => {
+      if(val.timePeriod === 'Night'){
+        dataSet.night += 1
+      } else{
+        dataSet.day += 1
+      }
+    });
+
+    
+  }
+
+  else {
+    var query = response.filter((val) => {
+      return moment(val.date).tz('Asia/Bangkok').format('YYYY-MM-DD') >= dateStart && moment(val.date).tz('Asia/Bangkok').format('YYYY-MM-DD') <= dateEnd && val.timePeriod === filter_TimePeriod && val.DvID === filter_DeviceID;
+    });
+
+    query.forEach(async (val) => {
+      if(val.timePeriod === 'Night'){
+        dataSet.night += 1
+      } else{
+        dataSet.day += 1
+      }
+    });
+
+    
+  }
+}
+labels.forEach((val) => {
+  dataExp.push(dataSet[val])
+} )
+
+  return { labels, dataExp };
+}
+
+
+
 function setDate(days) {
   var dateObject = moment().tz('Asia/Bangkok');
   let dateRange = {}
@@ -255,10 +768,6 @@ else{
 
 }
 
-
-  
-  
-
 function formatDateToYYYYMMDD(date) {
   var formattedDate = new Date(date).toISOString().split('T')[0];
   return formattedDate;
@@ -275,6 +784,155 @@ function checkEndDate(startDate, endDate) {
   return end.getTime() >= start.getTime();
 }
 
+function setChartDetectDay(dataAA){
+  $('#chartCountDay').remove()
+  let canvasElement1 = $("<canvas></canvas>");
+  // let canvasElement2 = $("<canvas></canvas>");
+  // let canvasElement3 = $("<canvas></canvas>");
+
+
+canvasElement1.attr("id", "chartCountDay")
+// canvasElement3.attr("id", "chartCountTime")
+// canvasElement2.attr("id", "chart3")
+
+
+$('#sec-chartCountDay').append(canvasElement1)
+// $('#sec-chartCountTime').append(canvasElement2)
+// $('#sec-chart3').append(canvasElement3)
+
+console.log(dataAA);
+// let data2 = dataAA.data2
+// let data3 = dataAA.data3
+
+
+  new Chart($('#chartCountDay'), {
+    type: 'line',
+    
+    data: {
+      labels: dataAA.labels,
+      datasets: [
+        {
+        label:'detected',
+        data:dataAA.dataSet
+      }
+    ]
+    },
+    options: {
+      indexAxis: 'x',
+      // Elements options apply to all of the options unless overridden in a dataset
+      // In this case, we are setting the border of each horizontal bar to be 2px wide
+      elements: {
+        bar: {
+          borderWidth: 2,
+        }
+      },
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'right',
+        }
+      }
+    }
+  });
+
+}
+
+
+function setChartDetectTime(dataAA){
+  $('#chartCountTime').remove()
+  let canvasElement1 = $("<canvas></canvas>");
+  // let canvasElement2 = $("<canvas></canvas>");
+  // let canvasElement3 = $("<canvas></canvas>");
+
+
+canvasElement1.attr("id", "chartCountTime")
+// canvasElement3.attr("id", "chartCountTime")
+// canvasElement2.attr("id", "chart3")
+
+
+$('#sec-chartCountTime').append(canvasElement1)
+// $('#sec-chartCountTime').append(canvasElement2)
+// $('#sec-chart3').append(canvasElement3)
+
+console.log(dataAA);
+// let data2 = dataAA.data2
+// let data3 = dataAA.data3
+
+
+  new Chart($('#chartCountTime'), {
+    type: 'line',
+    
+    data: {
+      labels: dataAA.labels,
+      datasets: [
+        {
+        label:'detected',
+        data:dataAA.dataSet
+      }
+    ]
+    },
+    options: {
+      indexAxis: 'x',
+      // Elements options apply to all of the options unless overridden in a dataset
+      // In this case, we are setting the border of each horizontal bar to be 2px wide
+      elements: {
+        bar: {
+          borderWidth: 2,
+        }
+      },
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'right',
+        }
+      }
+    }
+  });
+
+}
+
+function setChartDetectperiod(dataAA){
+  $('#chartPeriod').remove()
+  let canvasElement1 = $("<canvas></canvas>");
+  // let canvasElement2 = $("<canvas></canvas>");
+  // let canvasElement3 = $("<canvas></canvas>");
+
+
+canvasElement1.attr("id", "chartPeriod")
+// canvasElement3.attr("id", "chart3")
+// canvasElement2.attr("id", "chart3")
+
+
+$('#sec-chart3').append(canvasElement1)
+// $('#sec-chart3').append(canvasElement2)
+// $('#sec-chart3').append(canvasElement3)
+
+console.log(dataAA);
+// let data2 = dataAA.data2
+// let data3 = dataAA.data3
+
+
+new Chart($('#chartPeriod'), {
+  type: 'pie',
+  data:  {
+    labels: [
+      'Night',
+      'Day'
+    ],
+    datasets: [{
+      label: ' Time Period',
+      data: dataAA.dataExp,
+      backgroundColor: [
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)'
+      ],
+      hoverOffset: 2
+    }]
+  }
+})
+
+}
+// /
 
 
 // -------------------------------------------------------------
@@ -282,6 +940,7 @@ let map;
 
 
 var currantMaps = null
+
 
 async function initMap() {
   
@@ -339,12 +998,54 @@ async function initMap() {
       document.getElementById('DvInfo_DvID').innerHTML =  `<span style="font-weight: bold">Device ID: </span>${val.DvId}`;
       document.getElementById('DvInfo_Ad').innerHTML =  `<span style="font-weight: bold">address: </span>${val.address}`;
       document.getElementById('DvInfo_Count').innerHTML =  `<span style="font-weight: bold">count Detected: </span>${val.count}`;
-
+      
       currantMaps = val.DvId
+      
+      $('.not-infoday').remove()
+      $(".not-infotime").remove()
+      $(".not-infoperiod").remove()
+      let DeviceDetectDayCart =  getDeviceDetect('', '', 'All', currantMaps)
+      DeviceDetectDayCart.then((data) => {
+        console.log(data);
+        
+          
+          setChartDetectDay(data)
+        
+      })
+      DeviceDetectDayCart.catch((error) => {
+        console.error(error);
+      });
+
+      let DeviceDetectTimeCart = getDeviceDetectTime('', '', 'All', currantMaps)
+      DeviceDetectTimeCart.then((data) => {
+        console.log(data);
+       
+              
+        setChartDetectTime(data)
+             
+        
+      })
+      DeviceDetectTimeCart.catch((error) => {
+        console.error(error);
+      });
+
+      let DeviceDetectTimePeriodCart = getTimePeriod('', '', 'All', currantMaps)
+      DeviceDetectTimePeriodCart.then((data) => {
+        console.log(data);
+        setChartDetectperiod(data)
+        
+        
+      })
+      DeviceDetectTimePeriodCart.catch((error) => {
+        console.error(error);
+      });
+
+
+
+  
     });
 
-    let DvCheckbox = `<label for="${val.DvId}"  class="checkbox"><input type="checkbox" name="${val.DvId}" id="DvFilter" value="test" style="display: none;">${val.DvId}</label>`
-    $('#DvFilter-item').append(DvCheckbox)
+   
   })
 
   } catch (error) {
@@ -352,20 +1053,7 @@ async function initMap() {
   }
 
 
-  // LavelAndData.forEach((val) => {
-  //   let marker = new google.maps.Marker({
-  //     position: data.pos,
-  //     map: map,
-  //     title: data.label
-  //   });
   
-  //   marker.addListener('click', function() {
-  //     document.getElementById('test').textContent = 'clicked!';
-  //   });
-  // });
-  
-
-  // The marker, positioned at Uluru
   
 }
 
@@ -376,34 +1064,8 @@ $(document).ready(function () {
   getChart_L7d(`https://script.google.com/macros/s/AKfycbwzyMQQGRdOvt52OLgqShInHrIwSyD6_yB2hGfEkqPfjAePEUiKEotUlhfCyCQgYPm4/exec?dateStart=${setDate(1).Start}&dateEnd=${setDate(1).End}`)
   getLastData()
   setInterval(function () {
-    $('#update-date').html('<span id="update-date" style="font-size:14px; color: #818181; margin-left:0.5rem;"><spanclass="spinner-grow" aria-hidden="true"></spanclass=>กำลังโหลดข้อมูล...</span>');
     getLastData()
   }, 8000);
-
-
-
-
-  // $.ajax({
-  //   url: "https://raw.githubusercontent.com/kongvut/thai-province-data/master/api_province_with_amphure_tambon.json",
-  //   dataType: "json",
-  //   success: function (response) {
-  //     const amphures = response.filter((res)=>{
-  //       return res.name_en === 'Bangkok'
-  //     })
-  //   //   const result = amphure.filter((res)=>{
-  //   //     return amphure. === 'Bangkok'
-  //   // })
-
-  //   amphures[0].amphure.forEach(amphure => {
-  //     console.log(amphure);
-  //   });
-
-      
-
-  //     console.log(amphures); 
-  //   }
-  // });
-
 
   $('#dateRange').change(function (e) { 
     e.preventDefault();  
@@ -523,18 +1185,7 @@ $(document).ready(function () {
     
   });
 
-  $('#filter-item1').change(function (e) { 
-    e.preventDefault();
 
-    if($('#filter-item1').val() == 'custom'){
-      $('#group-filterDate').show();
-    } 
-    
-    else{
-      $('#group-filterDate').hide();
-    }
-    
-  });
 
 
   $('#btn-filter').click(function (e) { 
@@ -544,8 +1195,36 @@ $(document).ready(function () {
 
 
   initMap();
-  
 
+  
+  $('input[name="filter-timePr"]').change(function() {
+    // เข้าถึงค่า value ของ input checkbox ที่ถูกเลือก
+    if($(this).is(':checked')){
+      $(this).parent().attr('style', 'background-color: #468999; color: #F3CF29;');
+      let value = $(this).val();
+    console.log(value);
+    }else{
+      $(this).parent().attr('style', '')
+    }
+    
+});
+
+$('#filterDateRange').change(function (e) { 
+  e.preventDefault();
+  let val = $('#filterDateRange').val()
+  if(val !== ''){
+      $('#filterDateRange').attr('style', 'width: 100%; border:solid 1px #468999');
+
+      if(val === 'custom'){
+          $('#group-filterDate').show();
+      }else{
+        $('#group-filterDate').hide();
+      }
+  }else{
+    $('#group-filterDate').hide();
+    $('#filterDateRange').attr('style', 'width: 100%; border:none');
+  }
+});
 
 });
 

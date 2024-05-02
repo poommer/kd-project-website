@@ -57,7 +57,8 @@
 
                         <div class="card-body">
                             <div style="font-size: 16px; display: flex; align-items: center; justify-content: center;">
-                                <span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</div>
+                                <span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...
+                            </div>
                         </div>
                     </div>
 
@@ -117,7 +118,8 @@
                         <div></div>
                         <h3 id="MosttFRange" style="margin-top: 1.5rem;">
                             <div style="font-size: 16px; display: flex; align-items: center; justify-content: center;">
-                                <span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</div>
+                                <span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...
+                            </div>
                         </h3>
                         <p style="text-align:end;">total from range</p>
 
@@ -127,7 +129,8 @@
                         <div></div>
                         <h3 id="MostToday" style="margin-top: 1.5rem;">
                             <div style="font-size: 16px; display: flex; align-items: center; justify-content: center;">
-                                <span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</div>
+                                <span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...
+                            </div>
                         </h3>
                         <p style="text-align:end;">Today</p>
 
@@ -137,7 +140,8 @@
                         <div></div>
                         <h3 style="margin-top: 1.5rem;" id="MostAll">
                             <div style="font-size: 16px; display: flex; align-items: center; justify-content: center;">
-                                <span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</div>
+                                <span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...
+                            </div>
                         </h3>
                         <p style="text-align:end;">all</p>
 
@@ -214,22 +218,25 @@
 
 
             <section id="showDataAll">
-                <div class="header-showData" style="position: relative; display: flex; align-items: center; justify-content: space-between;">
+                <div class="header-showData"
+                    style="position: relative; display: flex; align-items: center; justify-content: space-between;">
                     <h2>show Data All</h2>
                     <button id="btn-filter" style=""><img src="img/filter.png" alt="" style="width: 24px;"></button>
-                    
+
                 </div>
                 <div class="menu-Filter col" style="position: relative;">
-                        
-                        <div class="groupFilter-item" style="position: absolute; right: 0; display: none;">
-                            <div class="row">
-                                <div class="col" style="width: 70%;">
-                                <label for="filter-item1">Date range:</label>
-                                <select id="filter-item1" name="filter-item1" style="width: 100%;">
+
+                    <div class="groupFilter-item" style="position: absolute; right: 0; display: none;">
+                        <div class="row">
+                            <div class="col" style="width: 70%;">
+                                <label for="filterDateRange">Date range:</label>
+                                <select id="filterDateRange" name="filterDateRange" style="width: 100%; border: none; color: #686868;"
+                                    placeholder="no filter">
+                                    <option value="" selected>---no filter---</option>
                                     <option value="7days">last 7 days</option>
                                     <option value="14days">last 14 days</option>
                                     <option value="28days">last 28 days</option>
-                                    <option value="Today" selected>Today</option>
+                                    <option value="Today">Today</option>
                                     <option value="yesterday">yesterday</option>
                                     <option value="thisMonth">this month</option>
                                     <option value="lastMonth">last month</option>
@@ -242,84 +249,106 @@
                             <div class="col">
                                 <label for="">timePr</label>
                                 <div class="row">
-                                 <label for="filter-day" class="checkbox">
-                                <input type="checkbox" name="filter-day" id="filter-day" style="display: none;">
-                                Day
-                            </label>
+                                    <label for="filter-day" class="checkbox">
+                                        <input type="checkbox" name="filter-timePr" id="filter-day" value="day"
+                                            style="display: none;">
+                                        Day
+                                    </label>
 
-                            <label for="filter-night" class="checkbox">
-                                <input type="checkbox" name="filter-night" id="filter-day" style="display: none;">
-                                Night
-                            </label>
+                                    <label for="filter-night" class="checkbox">
+                                        <input type="checkbox" name="filter-timePr" id="filter-night" value="night"
+                                            style="display: none;">
+                                        Night
+                                    </label>
+                                </div>
                             </div>
-                            </div>
-                            
-                           
+
+
                         </div>
-                            
 
-                            <div id="group-filterDate" style="display: none;">
-                                <div class="col" >
-                                    <label for="filter-DateSt">Date start:</label>
-                                    <input type="date" name="filter-DateSt" id="filter-DateSt">
-                                </div>
 
-                                <div class="col" >
-                                    <label for="filter-DateEnd">Date end:</label>
-                                    <input type="date" name="filter-DateEnd" id="filter-DateEnd">
-                                </div>
+                        <div id="group-filterDate" style="display: none;">
+                            <div class="col">
+                                <label for="filter-DateSt">Date start:</label>
+                                <input type="date" name="filter-DateSt" id="filter-DateSt">
                             </div>
-                            
 
                             <div class="col">
-                                <label for="">DeviceID</label>
-
-                                <div class="row" id="DvFilter-item">
-                                   
-                                </div>
-                                
+                                <label for="filter-DateEnd">Date end:</label>
+                                <input type="date" name="filter-DateEnd" id="filter-DateEnd">
                             </div>
+                        </div>
+
+
+                        <div class="col">
+      
+
+                            <div class="col" style="margin-top: 1rem; align-items: end;">
+                                <button style="width:5rem;font-size: 14px;" id="btn-filter">ค้นหา</button>
+                            </div>
+
                         </div>
                     </div>
-
-
-                    <div class="col" >
-                        <div class="row" style="margin:1rem 0;">
-                            <div class="chart2" >
-                                <h2>Device Infomation</h2>
-                                <div id="infoDV">
-                                    <div class="not-info" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                                        <p>Not information!</p>
-                                    <small>please click marker on map</small>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-
-
-                            <div class="chart3">
-                                <h2>Detected time period</h2>
-                            </div>
-                        </div>
-
-                         <div class="row" style="">
-                     <div class="col chartGroup chart">
-                        <div class="row" id="chartCountDay">
-                            H1
-                        </div>
-
-                        <div class="row" id="chartCountTime">
-                            H2
-                        </div>
-                    </div>
-
-                <div class="historyDetected chart"  style="margin-left: 1rem;">
-                    h1
                 </div>
+
+
+                <div class="col" style="margin-top: 1rem;">
+
+                    <div class="row" style="">
+                        <div class="col chartGroup chart">
+                            <div class="col chart4"  id="sec-chartCountDay">
+                                <h2>Detected in day</h2>
+                                <div  class="not-infoday"
+                                style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                <p>Not information!</p>
+                                <small>please click marker on map</small>
+                            </div>
+                            </div>
+
+                            <div class="col chart4" id="sec-chartCountTime">
+                            <h2>Detection in time</h2>
+                            <div  class="not-infotime"
+                            style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <p>Not information!</p>
+                            <small>please click marker on map</small>
                         </div>
+                            </div>
+                        </div>
+
+                        <div class="col" style="width: 40%; gap:0.5rem">
+<div  id="deviceInfo" style="margin-left: .5rem;  width: 100%;   height: 10rem;
+                        ">
+                           <h2>Device Infomation</h2>
+                           <div id="infoDV">
+                               <div class="not-info"
+                                   style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                   <p>Not information!</p>
+                                   <small>please click marker on map</small>
+                               </div>
+
+                           </div>
+                            
+                        </div>
+
+                            <div class="chart3" id="sec-chart3" style="margin-left: .5rem;     height: 30rem;
+                        ">
+                            <h2>Detected time period</h2> 
+                            <canvas id="chartPeriod"></canvas>
+                            <div  class="not-infoperiod"
+                                style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                <p>Not information!</p>
+                                <small>please click marker on map</small>
+                            </div>
+                        
+                        </div>
+
+                        
+                        </div>
+                        
                     </div>
-               
-               
+                </div>
+
+
                 <!-- <div id="filterData" style="font-size: 10px;">
                     <div class="row" style="position: relative;">
 
@@ -339,39 +368,7 @@
                     </div>
                 </div> -->
             </section>
-
-            <!-- <section id="DvInfo" class="col" style="color: #3e3e3e; display: none;">
-                    <h2>device Information</h2>
-                    <div class="col">
-                        <p><span style="font-weight: bold;">Device ID:</span><span id="DvInfo_DvID"></span></p>
-                        <p><span style="font-weight: bold;">Address:</span><span id="DvInfo_Ad"></span></p>
-                        <p><span style="font-weight: bold;">Count Detected:</span><span id="DvInfo_Count"></span></p>
-
-                    </div>
-            </section> -->
-
-            <!-- <section id="filterData" class="col" style="color: #3e3e3e;">
-                    <h2>Filter:</h2>
-                    <div class="col">
-                        <div class="row">
-                            <div class="col">
-                                <label for="startDate">start Date</label>
-                                <input type="date" id="startDate">
-
-                            </div>
-
-                            <div class="col">
-                                <label for="startDate">End date</label>
-                                <input type="date" id="endDate">
-
-                            </div>
-
-
-<button id="btn-query" style="width: 100%; margin-top: 0.5rem;" disabled>filter</button>
-                        </div>
-                    </div>
-            </section> -->
-        </div>
+ </div>
 
 
     </main>
