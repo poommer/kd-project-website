@@ -274,6 +274,110 @@ function checkEndDate(startDate, endDate) {
 
 
 
+// -------------------------------------------------------------
+let map;
+
+
+var currantMaps = null
+
+async function initMap() {
+  
+
+  
+  // The location of Uluru
+  const position = {lat: 13.568249 , lng:101.509455 };
+  // Request needed libraries.
+  //@ts-ignore
+  const { Map } = await google.maps.importLibrary("maps");
+  const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+
+  // The map, centered at Uluru
+  map = new Map(document.getElementById("map"), {
+    zoom: 4,
+    center: position,
+    mapId: "802dff93db0ce925",
+  });
+
+
+  try {
+    const response = await fetch('https://script.google.com/macros/s/AKfycby9vPBs9n5GyRhCXiUNcAypI1q5MfcDoRYPuU17miFmQwrYHqhRIhUuXDKZqNrZuwJX/exec');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    console.log(data);
+
+
+   
+    data.forEach((val) => {
+    let marker = new google.maps.Marker({
+      position: val.pos,
+      map: map,
+      title: data.label
+    });
+  
+    marker.addListener('click', function() {
+     $('.not-info').remove()
+     createDvInfo_DvID = document.createElement('p')
+    createDvInfo_Ad = document.createElement('p')
+    createDvInfo_Count = document.createElement('p')
+
+    span_createDvInfo_DvID = document.createElement('span')
+    span_createDvInfo_Ad = document.createElement('span')
+    span_createDvInfo_Count = document.createElement('span')
+
+    createDvInfo_DvID.setAttribute('id', 'DvInfo_DvID');
+    createDvInfo_Ad.setAttribute('id', 'DvInfo_Ad');
+    createDvInfo_Count.setAttribute('id', 'DvInfo_Count');
+
+    span_createDvInfo_DvID.setAttribute('style','font-weight: bold;')
+    span_createDvInfo_Ad.setAttribute('style','font-weight: bold;')
+    span_createDvInfo_Count.setAttribute('style','font-weight: bold;')
+
+    document.getElementById('infoDV').appendChild(createDvInfo_DvID);
+    document.getElementById('infoDV').appendChild(createDvInfo_Ad);
+    document.getElementById('infoDV').appendChild(createDvInfo_Count);
+
+    
+
+    document.getElementById('DvInfo_DvID').append(span_createDvInfo_DvID);
+    document.getElementById('DvInfo_Ad').append(span_createDvInfo_Ad);
+    document.getElementById('DvInfo_Count').append(span_createDvInfo_Count);
+span_createDvInfo_DvID.textContent = 'Device ID'
+    span_createDvInfo_Ad.textContent = 'Address'
+    span_createDvInfo_Count.textContent = 'count'
+      document.getElementById('DvInfo_DvID').textContent =  val.DvId;
+      document.getElementById('DvInfo_Ad').textContent =  val.address;
+      document.getElementById('DvInfo_Count').textContent =  val.count;
+      currantMaps = val.DvId
+    });
+
+    let DvCheckbox = `<label for="${val.DvId}"  class="checkbox"><input type="checkbox" name="${val.DvId}" id="DvFilter" value="test" style="display: none;">${val.DvId}</label>`
+    $('#DvFilter-item').append(DvCheckbox)
+  })
+
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+  }
+
+
+  // LavelAndData.forEach((val) => {
+  //   let marker = new google.maps.Marker({
+  //     position: data.pos,
+  //     map: map,
+  //     title: data.label
+  //   });
+  
+  //   marker.addListener('click', function() {
+  //     document.getElementById('test').textContent = 'clicked!';
+  //   });
+  // });
+  
+
+  // The marker, positioned at Uluru
+  
+}
+
 // main 
 $(document).ready(function () {
 
@@ -424,6 +528,35 @@ $(document).ready(function () {
    
     
   });
+
+  $('#DvFilter').click(function (e) { 
+    e.preventDefault();
+    alert($('#DvFilter').val())
+    
+  });
+
+  $('#filter-item1').change(function (e) { 
+    e.preventDefault();
+
+    if($('#filter-item1').val() == 'custom'){
+      $('#group-filterDate').show();
+    } 
+    
+    else{
+      $('#group-filterDate').hide();
+    }
+    
+  });
+
+
+  $('#btn-filter').click(function (e) { 
+    e.preventDefault();
+    $('.groupFilter-item').toggle('activeBtnFilter');
+  });
+
+
+  initMap();
+  
 
 
 });

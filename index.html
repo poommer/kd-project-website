@@ -34,10 +34,8 @@
             <section id="mostDetected">
                 <div class="row" style="display: flex;  justify-content:space-between;">
                     <h1 style="display:flex; align-items:center; color:#c50000;">
-                        <img
-                        src="https://cdn-icons-png.flaticon.com/128/9356/9356599.png" alt=""
-                        style="width:30px;">
-                            Most detected!
+                        <img src="https://cdn-icons-png.flaticon.com/128/9356/9356599.png" alt="" style="width:30px;">
+                        Most detected!
                     </h1>
 
 
@@ -57,15 +55,16 @@
                         </div>
 
                         <div class="card-body">
-                            <div style="font-size: 16px; display: flex; align-items: center; justify-content: center;"><span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</div>
+                            <div style="font-size: 16px; display: flex; align-items: center; justify-content: center;">
+                                <span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</div>
                         </div>
                     </div>
 
                     <div class="col"
                         style="display: flex; justify-content:space-between; align-items: center; margin:0 1rem;">
 
-                        
-<div class="col">
+
+                        <div class="col">
                             <label for="dateRange">date range</label>
                             <select name="dateRange" id="dateRange">
                                 <option value="7days">last 7 days</option>
@@ -79,10 +78,10 @@
                                 <option value="lastYear">last year</option>
                                 <option value="custom">custom</option>
                             </select>
-                            </div>
+                        </div>
                         <div class="col" style="display: none;" id="dateRangeCustom">
 
-                            
+
 
                             <div class="col">
                                 <label for="startDate">start Date</label>
@@ -97,7 +96,7 @@
                             </div>
 
 
-<button id="btn-query" style="width: 100%; margin-top: 0.5rem;" disabled>filter</button>
+                            <button id="btn-query" style="width: 100%; margin-top: 0.5rem;" disabled>filter</button>
 
 
                         </div>
@@ -116,8 +115,9 @@
                     <div class="total-today total-card" style="border-color:#4193CC; width: 33.33%;">
                         <div></div>
                         <h3 id="MosttFRange" style="margin-top: 1.5rem;">
-                           <div style="font-size: 16px; display: flex; align-items: center; justify-content: center;"><span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</div>
-                    </h3>
+                            <div style="font-size: 16px; display: flex; align-items: center; justify-content: center;">
+                                <span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</div>
+                        </h3>
                         <p style="text-align:end;">total from range</p>
 
                     </div>
@@ -125,7 +125,8 @@
                     <div class="total-today total-card" style="border-color:#4193CC; width: 33.33%;">
                         <div></div>
                         <h3 id="MostToday" style="margin-top: 1.5rem;">
-                           <div style="font-size: 16px; display: flex; align-items: center; justify-content: center;"><span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</div>
+                            <div style="font-size: 16px; display: flex; align-items: center; justify-content: center;">
+                                <span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</div>
                         </h3>
                         <p style="text-align:end;">Today</p>
 
@@ -134,7 +135,8 @@
                     <div class="total-all total-card" style="border-color:#9D9BEE; width: 33.33%; ">
                         <div></div>
                         <h3 style="margin-top: 1.5rem;" id="MostAll">
-                           <div style="font-size: 16px; display: flex; align-items: center; justify-content: center;"><span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</div>
+                            <div style="font-size: 16px; display: flex; align-items: center; justify-content: center;">
+                                <span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</div>
                         </h3>
                         <p style="text-align:end;">all</p>
 
@@ -146,20 +148,20 @@
                         <h2 style="display:flex; align-items:center;">detected chart</h2>
 
                         <div id="show-chart7Dn">
-                           </div>
+                        </div>
                     </section>
 
-                      <section id="chart7Dn-areaND" class="col">
+                    <section id="chart7Dn-areaND" class="col">
                         <h2 style="display:flex; align-items:center;">Detected time period</h2>
                         <div id="show-chart7Dn-areaND">
-                            </div>
+                        </div>
                     </section>
                 </div>
 
-                 
 
 
-                   
+
+
 
 
 
@@ -204,6 +206,164 @@
         </div>
 
 
+        <div class="row">
+            <section id="sec-maps">
+                <div id="map" style="width: 100%; height: 100%;"></div>
+            </section>
+
+
+            <section id="showDataAll">
+                <div class="header-showData" style="position: relative; display: flex; align-items: center; justify-content: space-between;">
+                    <h2>show Data All</h2>
+                    <button id="btn-filter" style=""><img src="img/filter.png" alt="" style="width: 24px;"></button>
+                    
+                </div>
+                <div class="menu-Filter col" style="position: relative;">
+                        
+                        <div class="groupFilter-item" style="position: absolute; right: 0; display: none;">
+                            <div class="row">
+                                <div class="col" style="width: 70%;">
+                                <label for="filter-item1">Date range:</label>
+                                <select id="filter-item1" name="filter-item1" style="width: 100%;">
+                                    <option value="7days">last 7 days</option>
+                                    <option value="14days">last 14 days</option>
+                                    <option value="28days">last 28 days</option>
+                                    <option value="Today" selected>Today</option>
+                                    <option value="yesterday">yesterday</option>
+                                    <option value="thisMonth">this month</option>
+                                    <option value="lastMonth">last month</option>
+                                    <option value="thisYear">this year</option>
+                                    <option value="lastYear">last year</option>
+                                    <option value="custom">custom</option>
+                                </select>
+                            </div>
+
+                            <div class="col">
+                                <label for="">timePr</label>
+                                <div class="row">
+                                 <label for="filter-day" class="checkbox">
+                                <input type="checkbox" name="filter-day" id="filter-day" style="display: none;">
+                                Day
+                            </label>
+
+                            <label for="filter-night" class="checkbox">
+                                <input type="checkbox" name="filter-night" id="filter-day" style="display: none;">
+                                Night
+                            </label>
+                            </div>
+                            </div>
+                            
+                           
+                        </div>
+                            
+
+                            <div id="group-filterDate" style="display: none;">
+                                <div class="col" >
+                                    <label for="filter-DateSt">Date start:</label>
+                                    <input type="date" name="filter-DateSt" id="filter-DateSt">
+                                </div>
+
+                                <div class="col" >
+                                    <label for="filter-DateEnd">Date end:</label>
+                                    <input type="date" name="filter-DateEnd" id="filter-DateEnd">
+                                </div>
+                            </div>
+                            
+
+                            <div class="col">
+                                <label for="">DeviceID</label>
+
+                                <div class="row" id="DvFilter-item">
+                                   
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col">
+                        <div class="row">
+                            <div class="chart2">
+                                <h3>Device Infomation</h3>
+                                <div id="infoDV">
+                                    <div class="not-info" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                        <p>Not information!</p>
+                                    <small>please click marker on map</small>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+
+                            <div class="chart3">2</div>
+                        </div>
+                         <div class="row">
+                     <div class="chartCountDay chart">
+                    h1
+                </div>
+
+                <div class="chartCountTime chart">
+                    h1
+                </div>
+                        </div>
+                    </div>
+               
+               
+                <!-- <div id="filterData" style="font-size: 10px;">
+                    <div class="row" style="position: relative;">
+
+                        <div class="col">
+                            <label for="startDate">start Date</label>
+                            <input type="date" id="startDate" style="width: 10rem;height: 30px;font-size: 12px; border: solid 1px #468999;border-radius: 5px;">
+                        </div>
+
+                        <div class="col" style="margin-left: 0.5rem;">
+                            <label for="startDate">End date</label>
+                            <input type="date" id="endDate" style="width: 10rem;height: 30px;font-size: 12px;border: solid 1px #468999;border-radius: 5px;">
+                        </div>
+
+
+                        <button id="btn-query"
+                            style="/* width: 100%; *//* margin-top: 0.5rem; */margin-left: 0.5rem;height: 50%;bottom: 0;position: relative;">filter</button>
+                    </div>
+                </div> -->
+            </section>
+
+            <!-- <section id="DvInfo" class="col" style="color: #3e3e3e; display: none;">
+                    <h2>device Information</h2>
+                    <div class="col">
+                        <p><span style="font-weight: bold;">Device ID:</span><span id="DvInfo_DvID"></span></p>
+                        <p><span style="font-weight: bold;">Address:</span><span id="DvInfo_Ad"></span></p>
+                        <p><span style="font-weight: bold;">Count Detected:</span><span id="DvInfo_Count"></span></p>
+
+                    </div>
+            </section> -->
+
+            <!-- <section id="filterData" class="col" style="color: #3e3e3e;">
+                    <h2>Filter:</h2>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <label for="startDate">start Date</label>
+                                <input type="date" id="startDate">
+
+                            </div>
+
+                            <div class="col">
+                                <label for="startDate">End date</label>
+                                <input type="date" id="endDate">
+
+                            </div>
+
+
+<button id="btn-query" style="width: 100%; margin-top: 0.5rem;" disabled>filter</button>
+                        </div>
+                    </div>
+            </section> -->
+        </div>
+
+
     </main>
 
     <footer>
@@ -213,9 +373,16 @@
 </body>
 
 
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+    (g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })
+        ({ key: "AIzaSyCtu4ay6A9yIe35MSAJ3Jr1p07S1DvgiZ0", v: "weekly" });</script>
+
+</script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+
 <script src="script.js"></script>
 
 </html>
