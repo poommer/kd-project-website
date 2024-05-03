@@ -6,7 +6,7 @@ function changeCheckedDvID(ID){
   if($(ID).is(':checked')){
       $(ID).parent().attr('style', 'background-color: #468999; color: #F3CF29;');
       let value = $(ID).val();
-    console.log(value);
+
     }else{
       $(ID).parent().attr('style', '')
     }
@@ -27,7 +27,7 @@ function getChart_L7d(url) {
     dataType: "json",
     success: function (response) {
 
-    console.log(response);
+
 
     let Data = response.newData
 
@@ -53,9 +53,7 @@ function getChart_L7d(url) {
     let TotalToday =Data.TodayT
     let TotalAll =Data.TotalAll
 
-    console.log(tFRange);
-    console.log(TotalToday);
-    console.log(TotalAll);
+
 
     $('#MosttFRange').text(tFRange);
     $('#MostToday').text(TotalToday);
@@ -140,19 +138,14 @@ function getLastData() {
       url: 'https://script.google.com/macros/s/AKfycbyQJu_ayE0VMmh1H0yJH7PQCwmPbiZDXJA-B92WIwDN_PThd5YhdAx_52xikyDYEmtwxA/exec',
         dataType: "json",
         success: function (data) {
-          console.log(data)
           const latest = data[0];
-          console.table(latest)
           if(newLatest === null && newLatestD === null){
-            console.log(null)
             newLatest = latest.timestamp
             newLatestD = latest.DvID
           } 
           else if (newLatest == latest.timestamp && newLatestD == latest.DvID){
-            console.log(false)
             $('#update-gif').hide();
           }else{
-            console.log(true)
             newLatest = latest.timestamp
             newLatestD = latest.DvID
             $('#update-gif').show();
@@ -161,13 +154,10 @@ function getLastData() {
             getChart_L7d(`https://script.google.com/macros/s/AKfycbwzyMQQGRdOvt52OLgqShInHrIwSyD6_yB2hGfEkqPfjAePEUiKEotUlhfCyCQgYPm4/exec?dateStart=${setDate(1).Start}&dateEnd=${setDate(1).End}`)
           }
 
-          console.table(newLatest)
-          console.table(latest)
           $('#body-latestTable').find('tr').remove();
           data.forEach(item => {
             
             $('#body-latestTable').append('<tr><td>'+item.timestamp+'</td>'+'<td>'+item.DvID+'</td>'+'<td>'+item.timePeriod+'</td>'+'<td>'+item.address+'</td>'+'</tr>');
-            console.log(typeof(item.timestamp));
           });
         }
     });
@@ -361,7 +351,7 @@ async function getDeviceDetectTime(filter_dateStart, filter_dateEnd, filter_Time
         }
       })
 
-       for(let i = 1; i < labels.length; i++){
+       for(let i = 1; i <= labels.length; i++){
         dataSet.push(FormatData['TimeRange'+i])
       }
       }
@@ -407,7 +397,7 @@ async function getDeviceDetectTime(filter_dateStart, filter_dateEnd, filter_Time
           }
         })
 
-        for(let i = 1; i < labels.length; i++){
+        for(let i = 1; i <= labels.length; i++){
           dataSet.push(FormatData['TimeRange'+i])
         }
 
@@ -457,7 +447,7 @@ async function getDeviceDetectTime(filter_dateStart, filter_dateEnd, filter_Time
     }
   })
 
-   for(let i = 1; i < labels.length; i++){
+   for(let i = 1; i <= labels.length; i++){
     dataSet.push(FormatData['TimeRange'+i])
   }
   }
@@ -503,7 +493,7 @@ async function getDeviceDetectTime(filter_dateStart, filter_dateEnd, filter_Time
       }
     })
 
-    for(let i = 1; i < labels.length; i++){
+    for(let i = 1; i <= labels.length; i++){
       dataSet.push(FormatData['TimeRange'+i])
     }
   
@@ -787,22 +777,15 @@ function checkEndDate(startDate, endDate) {
 function setChartDetectDay(dataAA){
   $('#chartCountDay').remove()
   let canvasElement1 = $("<canvas></canvas>");
-  // let canvasElement2 = $("<canvas></canvas>");
-  // let canvasElement3 = $("<canvas></canvas>");
+
 
 
 canvasElement1.attr("id", "chartCountDay")
-// canvasElement3.attr("id", "chartCountTime")
-// canvasElement2.attr("id", "chart3")
+
 
 
 $('#sec-chartCountDay').append(canvasElement1)
-// $('#sec-chartCountTime').append(canvasElement2)
-// $('#sec-chart3').append(canvasElement3)
 
-console.log(dataAA);
-// let data2 = dataAA.data2
-// let data3 = dataAA.data3
 
 
   new Chart($('#chartCountDay'), {
@@ -841,22 +824,11 @@ console.log(dataAA);
 function setChartDetectTime(dataAA){
   $('#chartCountTime').remove()
   let canvasElement1 = $("<canvas></canvas>");
-  // let canvasElement2 = $("<canvas></canvas>");
-  // let canvasElement3 = $("<canvas></canvas>");
-
 
 canvasElement1.attr("id", "chartCountTime")
-// canvasElement3.attr("id", "chartCountTime")
-// canvasElement2.attr("id", "chart3")
-
 
 $('#sec-chartCountTime').append(canvasElement1)
-// $('#sec-chartCountTime').append(canvasElement2)
-// $('#sec-chart3').append(canvasElement3)
 
-console.log(dataAA);
-// let data2 = dataAA.data2
-// let data3 = dataAA.data3
 
 
   new Chart($('#chartCountTime'), {
@@ -894,22 +866,10 @@ console.log(dataAA);
 function setChartDetectperiod(dataAA){
   $('#chartPeriod').remove()
   let canvasElement1 = $("<canvas></canvas>");
-  // let canvasElement2 = $("<canvas></canvas>");
-  // let canvasElement3 = $("<canvas></canvas>");
-
 
 canvasElement1.attr("id", "chartPeriod")
-// canvasElement3.attr("id", "chart3")
-// canvasElement2.attr("id", "chart3")
-
 
 $('#sec-chart3').append(canvasElement1)
-// $('#sec-chart3').append(canvasElement2)
-// $('#sec-chart3').append(canvasElement3)
-
-console.log(dataAA);
-// let data2 = dataAA.data2
-// let data3 = dataAA.data3
 
 
 new Chart($('#chartPeriod'), {
@@ -932,6 +892,96 @@ new Chart($('#chartPeriod'), {
 })
 
 }
+
+function setprogress(dataAA){
+  $("#predicInfo").show()
+let now = moment().tz('Asia/Bangkok').format('HH:mm')
+let data = dataAA.dataSet
+let presenDD = 0
+let rangeT = null
+
+let sumData = 0;
+data.forEach((val)=>{
+  sumData += val
+})
+
+let persen = data.map((val) => {
+  return (val*100)/sumData
+})
+
+if(
+  now >= moment('06:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') &&
+  now < moment('12:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')
+) {
+   presenDD = persen[0]+persen[1] ;
+   rangeT = '06:00 - 12:00'
+}
+
+else if(
+  now >= moment('12:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') &&
+  now < moment('18:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')
+) {
+   presenDD = persen[2]+persen[3] ;
+   rangeT = '12:00 - 18:00'
+}
+
+else if(
+  now >= moment('18:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') &&
+  now <= moment('23:59', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')
+) {
+   presenDD = persen[4] + persen[5];
+   rangeT = '18:00 - 24:00'
+}
+
+else if(
+  now >= moment('24:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm') &&
+  now < moment('06:00', 'HH:mm').tz('Asia/Bangkok').format('HH:mm')
+) {
+   presenDD = persen[6] + persen[7] ;
+   rangeT = '24:00 - 06:00'
+}
+
+if(presenDD <= 33.33){
+  return {persen:presenDD, Leval:'safe', rangeT:rangeT}
+} else if(presenDD > 33.33 && presenDD <= 66.66){
+  return {persen:presenDD, Leval:'warning', rangeT:rangeT}
+} else{
+  return {persen:presenDD, Leval:'danger', rangeT:rangeT}
+}
+
+}
+
+function updateProgress(Lev) {
+  let progressWidth = 0;
+
+  switch (Lev.Leval) {
+    case "safe":
+      $("#progress-bar").css("background-color", "#089a00"); // Safe color
+      progressWidth = Lev.persen; // 33.33% for safe
+      $('#lev_vlue').text(`${Lev.rangeT},\t ${Lev.persen.toFixed(2)}% were detected.`)
+      break;
+    case "warning":
+      $("#progress-bar").css("background-color", "#F3CF29"); // Warning color
+      progressWidth = Lev.persen; // 66.66% for warning
+      $('#lev_vlue').text(`${Lev.rangeT},\t ${Lev.persen.toFixed(2)}% were detected.`)
+      break;
+    case "danger":
+      $("#progress-bar").css("background-color", "#c50000"); // Danger color
+      progressWidth = Lev.persen; // 100% for danger
+      $('#lev_vlue').text(`${Lev.rangeT},\t ${Lev.persen.toFixed(2)}% were detected.`)
+      break;
+    default:
+      $("#progress-bar").css("background-color", "#089a00"); // Default color for safety
+      break;
+  }
+
+  $("#progress-bar").css("width", progressWidth + "%");
+}
+
+
+
+
+
 // /
 
 
@@ -967,8 +1017,6 @@ async function initMap() {
       throw new Error('Network response was not ok');
     }
     const data = await response.json();
-    console.log(data);
-
 
    
     data.forEach((val) => {
@@ -1004,9 +1052,10 @@ async function initMap() {
       $('.not-infoday').remove()
       $(".not-infotime").remove()
       $(".not-infoperiod").remove()
+      $("#infopredic").remove() 
       let DeviceDetectDayCart =  getDeviceDetect('', '', 'All', currantMaps)
       DeviceDetectDayCart.then((data) => {
-        console.log(data);
+        
         
           
           setChartDetectDay(data)
@@ -1018,11 +1067,17 @@ async function initMap() {
 
       let DeviceDetectTimeCart = getDeviceDetectTime('', '', 'All', currantMaps)
       DeviceDetectTimeCart.then((data) => {
-        console.log(data);
+        
        
               
         setChartDetectTime(data)
-             
+
+        let lev = setprogress(data)
+
+        let progresss = updateProgress(lev)
+
+        console.log(lev)
+        console.log(progresss)
         
       })
       DeviceDetectTimeCart.catch((error) => {
@@ -1031,7 +1086,7 @@ async function initMap() {
 
       let DeviceDetectTimePeriodCart = getTimePeriod('', '', 'All', currantMaps)
       DeviceDetectTimePeriodCart.then((data) => {
-        console.log(data);
+        
         setChartDetectperiod(data)
         
         
@@ -1136,9 +1191,7 @@ $(document).ready(function () {
     $('.card-body').html('<span style="font-size: 16px; display: flex; align-items: center; justify-content: center;"><span class="spinner-grow" aria-hidden="true"></span>กำลังโหลดข้อมูล...</span>')
 
     
-    
 
-    console.log(('dateStart = '+dS.Start+' - dateEnd = '+dS.End))
     getChart_L7d(`https://script.google.com/macros/s/AKfycbwzyMQQGRdOvt52OLgqShInHrIwSyD6_yB2hGfEkqPfjAePEUiKEotUlhfCyCQgYPm4/exec?dateStart=${dS.Start}&dateEnd=${dS.End}`)
    
    alert(valDateRange)
@@ -1186,12 +1239,153 @@ $(document).ready(function () {
   });
 
 
+let filterDateRange = null
+
 
 
   $('#btn-filter').click(function (e) { 
     e.preventDefault();
-    $('.groupFilter-item').toggle('activeBtnFilter');
+    if(currantMaps === null){
+      alert('Not information!\nplease click marker on map')
+    }else{
+      $('.groupFilter-item').toggle();
+    }
+    
   });
+
+  $('#btn-filter-enter').click(function (e) { 
+    e.preventDefault();
+    let timePrCount = []
+    let vari_PrTime = null
+    let stDate =''
+    let endDate = ''
+    let valrangeD = $('#filterDateRange').val() 
+    let Date_check = true
+
+    $('input[name="filter-timePr"]:checked').each(function(index, val) {
+      timePrCount.push($(val).val())
+    });
+
+    if(timePrCount.length === 0 || timePrCount.length === 2){
+      vari_PrTime = 'All'
+    }else{
+      vari_PrTime = timePrCount[0]
+    }
+  
+    if(valrangeD === 'custom'){
+      if( checkEndDate($('#filter-DateSt').val(), $('#filter-DateEnd').val())){
+        stDate = $('#filter-DateSt').val()
+        endDate = $('#filter-DateEnd').val()
+      }else{
+        Date_check = false
+      }
+      
+    }else if(valrangeD === ''){
+      stDate =''
+      endDate = ''
+    }
+    
+    else{
+      let setDateFilter = null
+
+    if(valrangeD == 'Today'){
+      setDateFilter = setDate(1)
+     
+    }
+
+    else if(valrangeD == 'yesterday'){
+       setDateFilter = setDate(-1)
+     
+    }
+    
+    else if(valrangeD == '7days'){
+       setDateFilter = setDate(-7)
+      
+     
+    }
+
+    else if(valrangeD == '14days'){
+       setDateFilter = setDate(-14)
+      
+     
+    }
+
+    else if(valrangeD == '28days'){
+       setDateFilter = setDate(-28)
+      
+     
+    }
+
+    else if(valrangeD == 'thisMonth'){
+       setDateFilter = setDate(1.1)
+      
+     
+    }
+
+    else if(valrangeD == 'lastMonth'){
+       setDateFilter = setDate(1.2) 
+    }
+
+    else if(valrangeD == 'thisYear'){
+       setDateFilter = setDate(2.1) 
+    }
+
+    else if(valrangeD == 'lastYear'){
+       setDateFilter = setDate(2.2) 
+    }
+    stDate = setDateFilter.Start
+    endDate = setDateFilter.End
+
+    }
+
+    if(Date_check){
+      alert(`vari_PrTime: ${vari_PrTime}\nstart Date:${stDate}\nend Date:${endDate}`)
+
+      let DeviceDetectDayCart =  getDeviceDetect(stDate, endDate, vari_PrTime, currantMaps)
+      DeviceDetectDayCart.then((data) => {
+
+        
+          
+          setChartDetectDay(data)
+        
+      })
+      DeviceDetectDayCart.catch((error) => {
+        console.error(error);
+      });
+
+      let DeviceDetectTimeCart = getDeviceDetectTime(stDate,endDate,vari_PrTime, currantMaps)
+      DeviceDetectTimeCart.then((data) => {
+
+       
+              
+        setChartDetectTime(data)
+             
+        
+      })
+      DeviceDetectTimeCart.catch((error) => {
+        console.error(error);
+      });
+
+      let DeviceDetectTimePeriodCart = getTimePeriod(stDate, endDate,vari_PrTime, currantMaps)
+      DeviceDetectTimePeriodCart.then((data) => {
+
+        setChartDetectperiod(data)
+        
+        
+      })
+      DeviceDetectTimePeriodCart.catch((error) => {
+        console.error(error);
+      });
+
+      $('.groupFilter-item').toggle()
+    } else{
+      alert('The end date must be greater than the start date.')
+      $('#filter-DateEnd').val('')
+    }
+    
+
+  });
+
 
 
   initMap();
@@ -1202,12 +1396,14 @@ $(document).ready(function () {
     if($(this).is(':checked')){
       $(this).parent().attr('style', 'background-color: #468999; color: #F3CF29;');
       let value = $(this).val();
-    console.log(value);
+
     }else{
       $(this).parent().attr('style', '')
     }
     
 });
+
+var setDateFilter = null
 
 $('#filterDateRange').change(function (e) { 
   e.preventDefault();
@@ -1216,9 +1412,7 @@ $('#filterDateRange').change(function (e) {
       $('#filterDateRange').attr('style', 'width: 100%; border:solid 1px #468999');
 
       if(val === 'custom'){
-          $('#group-filterDate').show();
-      }else{
-        $('#group-filterDate').hide();
+        $('#group-filterDate').show()
       }
   }else{
     $('#group-filterDate').hide();
@@ -1226,6 +1420,12 @@ $('#filterDateRange').change(function (e) {
   }
 });
 
+
+$('#timeNow').html(moment().tz('Asia/Bangkok').format('HH:mm:ss'))
+
+setInterval(function () {
+  $('#timeNow').html(moment().tz('Asia/Bangkok').format('HH:mm:ss'))
+}, 1000);
 });
 
 

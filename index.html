@@ -230,8 +230,8 @@
                         <div class="row">
                             <div class="col" style="width: 70%;">
                                 <label for="filterDateRange">Date range:</label>
-                                <select id="filterDateRange" name="filterDateRange" style="width: 100%; border: none; color: #686868;"
-                                    placeholder="no filter">
+                                <select id="filterDateRange" name="filterDateRange"
+                                    style="width: 100%; border: none; color: #686868;" placeholder="no filter">
                                     <option value="" selected>---no filter---</option>
                                     <option value="7days">last 7 days</option>
                                     <option value="14days">last 14 days</option>
@@ -250,13 +250,13 @@
                                 <label for="">timePr</label>
                                 <div class="row">
                                     <label for="filter-day" class="checkbox">
-                                        <input type="checkbox" name="filter-timePr" id="filter-day" value="day"
+                                        <input type="checkbox" name="filter-timePr" id="filter-day" value="Day"
                                             style="display: none;">
                                         Day
                                     </label>
 
                                     <label for="filter-night" class="checkbox">
-                                        <input type="checkbox" name="filter-timePr" id="filter-night" value="night"
+                                        <input type="checkbox" name="filter-timePr" id="filter-night" value="Night"
                                             style="display: none;">
                                         Night
                                     </label>
@@ -281,10 +281,10 @@
 
 
                         <div class="col">
-      
+
 
                             <div class="col" style="margin-top: 1rem; align-items: end;">
-                                <button style="width:5rem;font-size: 14px;" id="btn-filter">ค้นหา</button>
+                                <button style="width:5rem;font-size: 14px;" id="btn-filter-enter">ค้นหา</button>
                             </div>
 
                         </div>
@@ -296,79 +296,98 @@
 
                     <div class="row" style="">
                         <div class="col chartGroup chart">
-                            <div class="col chart4"  id="sec-chartCountDay">
+                            <div class="col chart4" id="sec-chartCountDay">
                                 <h2>Detected in day</h2>
-                                <div  class="not-infoday"
-                                style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                                <p>Not information!</p>
-                                <small>please click marker on map</small>
-                            </div>
+                                <div class="not-infoday"
+                                    style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                    <p>Not information!</p>
+                                    <small>please click marker on map</small>
+                                </div>
                             </div>
 
                             <div class="col chart4" id="sec-chartCountTime">
-                            <h2>Detection in time</h2>
-                            <div  class="not-infotime"
-                            style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                            <p>Not information!</p>
-                            <small>please click marker on map</small>
-                        </div>
+                                <h2>Detection in time</h2>
+                                <div class="not-infotime"
+                                    style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                    <p>Not information!</p>
+                                    <small>please click marker on map</small>
+                                </div>
                             </div>
                         </div>
 
                         <div class="col" style="width: 40%; gap:0.5rem">
-<div  id="deviceInfo" style="margin-left: .5rem;  width: 100%;   height: 10rem;
-                        ">
-                           <h2>Device Infomation</h2>
-                           <div id="infoDV">
-                               <div class="not-info"
-                                   style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                                   <p>Not information!</p>
-                                   <small>please click marker on map</small>
-                               </div>
+                            <div  id="deviceInfo" style="margin-left: .5rem;  width: 100%;   height: 10rem;">
+                              <div class="row" style="justify-content: space-between; align-items: center;">
+                                    <h2>prediction</h2>
+                                    <p>Now time <span id="timeNow"></span></p>
+                                </div>
+                                <div id="predicInfo" class="col" style="justify-content: center; gap: .4rem; display: none;">
+                                 
+                                
 
-                           </div>
-                            
-                        </div>
+                                <div class="progress-container">
+                                    <div class="progress-bar" id="progress-bar"></div>
+                                </div>
+                                <div class="statuspogress row"
+                                    style="justify-content: space-between; align-items: center; width: 100%;">
+                                    <small>safe</small>
+                                    <small>warning</small>
+                                    <small>danger</small>
+                                </div>
+                                <div class="row" id="lev_vlue"
+                                    style="justify-content: center; font-weight: bold; color: #468999;">Detected during
+                                    18:00 = 24:00 period 20%</div>
+                              </div>
+                               
+                              <div id="infopredic">
+                                <div class="not-info"
+                                    style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                    <p>Not information!</p>
+                                    <small>please click marker on map</small>
+                                </div>
+
+                            </div>
+
+
+                                
+
+                            </div>
+
+                            <div id="deviceInfo" style="margin-left: .5rem;  width: 100%;   height: 10rem;
+                        ">
+                                <h2>Device Infomation</h2>
+                                <div id="infoDV">
+                                    <div class="not-info"
+                                        style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                        <p>Not information!</p>
+                                        <small>please click marker on map</small>
+                                    </div>
+
+                                </div>
+
+                            </div>
 
                             <div class="chart3" id="sec-chart3" style="margin-left: .5rem;     height: 30rem;
                         ">
-                            <h2>Detected time period</h2> 
-                            <canvas id="chartPeriod"></canvas>
-                            <div  class="not-infoperiod"
-                                style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                                <p>Not information!</p>
-                                <small>please click marker on map</small>
+                                <h2>Detected time period</h2>
+                                <canvas id="chartPeriod"></canvas>
+                                <div class="not-infoperiod"
+                                    style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                    <p>Not information!</p>
+                                    <small>please click marker on map</small>
+                                </div>
+
                             </div>
-                        
+
+
                         </div>
 
-                        
-                        </div>
-                        
                     </div>
                 </div>
 
 
-                <!-- <div id="filterData" style="font-size: 10px;">
-                    <div class="row" style="position: relative;">
-
-                        <div class="col">
-                            <label for="startDate">start Date</label>
-                            <input type="date" id="startDate" style="width: 10rem;height: 30px;font-size: 12px; border: solid 1px #468999;border-radius: 5px;">
-                        </div>
-
-                        <div class="col" style="margin-left: 0.5rem;">
-                            <label for="startDate">End date</label>
-                            <input type="date" id="endDate" style="width: 10rem;height: 30px;font-size: 12px;border: solid 1px #468999;border-radius: 5px;">
-                        </div>
-
-
-                        <button id="btn-query"
-                            style="/* width: 100%; *//* margin-top: 0.5rem; */margin-left: 0.5rem;height: 50%;bottom: 0;position: relative;">filter</button>
-                    </div>
-                </div> -->
             </section>
- </div>
+        </div>
 
 
     </main>
