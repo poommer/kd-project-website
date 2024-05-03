@@ -1122,6 +1122,23 @@ $(document).ready(function () {
     getLastData()
   }, 8000);
 
+  setInterval(function () {
+    let DeviceDetectTimeCart = getDeviceDetectTime('', '', 'All', currantMaps)
+      DeviceDetectTimeCart.then((data) => {
+
+        let lev = setprogress(data)
+
+        let progresss = updateProgress(lev)
+
+        console.log(lev)
+        console.log(progresss)
+        
+      })
+      DeviceDetectTimeCart.catch((error) => {
+        console.error(error);
+      });
+  }, 600000);
+
   $('#dateRange').change(function (e) { 
     e.preventDefault();  
     const valDateRange = $('#dateRange').val();
