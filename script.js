@@ -135,7 +135,7 @@ function getChart_L7d(url) {
 
 function getLastData() {
     $.ajax({
-      url: 'https://script.google.com/macros/s/AKfycbyQJu_ayE0VMmh1H0yJH7PQCwmPbiZDXJA-B92WIwDN_PThd5YhdAx_52xikyDYEmtwxA/exec',
+      url: 'https://script.google.com/macros/s/AKfycbzlbDfA9NTsS6b0bRJTIaia75Ch44GPv9E1qMhgl4sNMzKFGvaDUVjYE7MCxhQk9lrhlw/exec',
         dataType: "json",
         success: function (data) {
           const latest = data[0];
